@@ -22,6 +22,8 @@ namespace MK
         public bool isInAir;
         public bool isGrounded;
         public bool canDoCombo;
+        public bool isUsingRightHand;
+        public bool isUsingLeftHand;
 
         //private void Awake()
         //{
@@ -43,6 +45,8 @@ namespace MK
 
             isInteracting = anim.GetBool("Is Interacting");
             canDoCombo = anim.GetBool("Can Do Combo");
+            isUsingRightHand = anim.GetBool("Is Using Right Hand");
+            isUsingLeftHand = anim.GetBool("Is Using Left Hand");
             anim.SetBool("Is In Air", isInAir);
             
             inputHandler.TickInput(delta);

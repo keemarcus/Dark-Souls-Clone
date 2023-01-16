@@ -16,7 +16,8 @@ public class ResetAnimatorBool : StateMachineBehaviour
             if (targetBool.Contains(","))
             {
                 string[] targetBools = targetBool.Split(',');
-                foreach(string target in targetBools) { animator.SetBool(target, status); }
+                
+                foreach(string target in targetBools) { Debug.Log(target); animator.SetBool(target, status); }
                 targetBool = targetBools[0];
             }
             else

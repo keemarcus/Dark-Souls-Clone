@@ -13,7 +13,7 @@ namespace MK
         {
             // look for a potential target
             #region Target Detection
-            Collider[] colliders = Physics.OverlapSphere(transform.position, enemyManager.detectionRadius, detectionLayer);
+            Collider[] colliders = Physics.OverlapSphere(enemyManager.transform.position, enemyManager.detectionRadius, detectionLayer);
 
             foreach (Collider collider in colliders)
             {
@@ -23,8 +23,8 @@ namespace MK
                 {
                     // check for team ID
 
-                    Vector3 targetDirection = characterStats.transform.position - transform.forward;
-                    float viewableAngle = Vector3.Angle(targetDirection, transform.forward);
+                    Vector3 targetDirection = characterStats.transform.position - enemyManager.transform.forward;
+                    float viewableAngle = Vector3.Angle(targetDirection, enemyManager.transform.forward);
 
                     if (viewableAngle > enemyManager.minimumDetectionAngle && viewableAngle < enemyManager.maximumDetectionAngle)
                     {

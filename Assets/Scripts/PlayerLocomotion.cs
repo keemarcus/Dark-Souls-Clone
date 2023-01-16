@@ -42,6 +42,9 @@ namespace MK
         [SerializeField]
         float fallingSpeed = 80f;
 
+        public CapsuleCollider characterCollider;
+        public CapsuleCollider characterCollisionBlocker;
+
         void Start()
         {
             playerManager = GetComponent<PlayerManager>();
@@ -55,6 +58,7 @@ namespace MK
 
             playerManager.isGrounded = true;
             ignoreForGroundCheck = ~(1 << 8 | 1 << 11);
+            Physics.IgnoreCollision(characterCollider, characterCollisionBlocker, true);
         }
 
 

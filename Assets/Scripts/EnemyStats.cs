@@ -26,6 +26,7 @@ namespace MK
 
         public void TakeDamage(int damage)
         {
+            if (isDead) { return; }
             currentHealth -= damage;
 
             animator.Play("Take Damage");
@@ -34,6 +35,7 @@ namespace MK
             {
                 currentHealth = 0;
                 animator.Play("Die");
+                isDead = true;
                 // handle player death later
             }
         }

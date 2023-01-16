@@ -10,10 +10,18 @@ namespace MK
         EnemyManager enemyManager;
         EnemyAnimatorHandler enemyAnimatorHandler;
 
+        public CapsuleCollider characterCollider;
+        public CapsuleCollider characterCollisionBlocker;
+
         private void Awake()
         {
             enemyManager = GetComponent<EnemyManager>();
             enemyAnimatorHandler = GetComponentInChildren<EnemyAnimatorHandler>();
+        }
+
+        private void Start()
+        {
+            Physics.IgnoreCollision(characterCollider, characterCollisionBlocker, true);
         }
         
     }

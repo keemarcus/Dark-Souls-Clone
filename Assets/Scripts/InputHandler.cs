@@ -48,6 +48,7 @@ namespace MK
         WeaponSlotManager weaponSlotManager;
         PlayerManager playerManager;
         CameraHandler cameraHandler;
+        AnimatorHandler animatorHandler;
         UIManager uiManager;
         
 
@@ -63,6 +64,7 @@ namespace MK
             weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
             uiManager = FindObjectOfType<UIManager>();
             cameraHandler = FindObjectOfType<CameraHandler>();
+            animatorHandler = GetComponentInChildren<AnimatorHandler>();
             pausedFlag = false;
         }
 
@@ -165,16 +167,19 @@ namespace MK
                 if (playerManager.canDoCombo)
                 {
                     comboFlag = true;
+                    animatorHandler.anim.SetBool("Is Using Right Hand", true);
                     playerAttacker.HandleWeaponCombo(playerInventory.rightWeapon, false);
                     comboFlag = false;
                 }
                 else
                 {
+                    animatorHandler.anim.SetBool("Is Using Right Hand", true);
                     playerAttacker.HandleOHLightAttack(playerInventory.rightWeapon, false);
                 }
             }
             if (rt_input)
             {
+                animatorHandler.anim.SetBool("Is Using Right Hand", true);
                 playerAttacker.HandleOHHeavyAttack(playerInventory.rightWeapon, false);
             }
             // lb/lt handle left hand weapons
@@ -183,16 +188,19 @@ namespace MK
                 if (playerManager.canDoCombo)
                 {
                     comboFlag = true;
+                    animatorHandler.anim.SetBool("Is Using Left Hand", true);
                     playerAttacker.HandleWeaponCombo(playerInventory.leftWeapon, true);
                     comboFlag = false;
                 }
                 else
                 {
+                    animatorHandler.anim.SetBool("Is Using Left Hand", true);
                     playerAttacker.HandleOHLightAttack(playerInventory.leftWeapon, true);
                 }
             }
             if (lt_input)
             {
+                animatorHandler.anim.SetBool("Is Using Left Hand", true);
                 playerAttacker.HandleOHHeavyAttack(playerInventory.leftWeapon, true);
             }
 

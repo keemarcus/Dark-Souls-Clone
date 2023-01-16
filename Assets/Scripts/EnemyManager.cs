@@ -18,17 +18,18 @@ namespace MK
         public CharacterStats currentTarget;
 
         public bool isPerformingAction;
+        public bool isInteracting;
         
 
         [Header("AI Settings")]
         public float detectionRadius = 20f;
         public float minimumDetectionAngle = -50f;
         public float maximumDetectionAngle = 50f;
-        public float viewableAngle;
+        //public float viewableAngle;
 
         public float currentRecoveryTime = 0f;
 
-        public float distanceFromTarget;
+        //public float distanceFromTarget;
         public float maximumAttackRange = 1.5f;
 
         public float rotationSpeed = 15;
@@ -52,6 +53,7 @@ namespace MK
             //Debug.Log(enemyLocomotion.navMeshAgent.steeringTarget);
             //Debug.Log(enemyLocomotion.)
             HandleRecoveryTimer();
+            isInteracting = enemyAnimatorHandler.anim.GetBool("Is Interacting");
         }
 
         private void FixedUpdate()
@@ -68,6 +70,7 @@ namespace MK
                 if(nextState != null)
                 {
                     SwitchToNextState(nextState);
+                    //Debug.Log(nextState.name);
                 }
             }
         }

@@ -44,6 +44,7 @@ namespace MK
 
         public void TakeDamage(int damage)
         {
+            if (isDead) { return; }
             currentHealth -= damage;
 
             healthBar.SetCurrentHealth(currentHealth);
@@ -54,6 +55,7 @@ namespace MK
             {
                 currentHealth = 0;
                 animatorHandler.PlayTargetAnimation("Die", true);
+                isDead = true;
                 // handle player death later
             }
         }
