@@ -11,8 +11,8 @@ namespace MK
         public int currentHealth;
 
         public int staminaLevel = 10;
-        public int maxStamina;
-        public int currentStamina;
+        public float maxStamina;
+        public float currentStamina;
         public bool isDead;
 
         public string teamID;

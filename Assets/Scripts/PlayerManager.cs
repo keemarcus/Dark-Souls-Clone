@@ -10,6 +10,7 @@ namespace MK
         Animator anim;
         CameraHandler cameraHandler;
         PlayerLocomotion playerLocomotion;
+        PlayerStats playerStats;
         InteractableUI interactableUI;
         public GameObject interactableUIGameObject;
         public GameObject itemPopupUIGameObject;
@@ -24,10 +25,11 @@ namespace MK
         public bool canDoCombo;
         public bool isUsingRightHand;
         public bool isUsingLeftHand;
+        public bool isInvulnerable;
 
         //private void Awake()
         //{
-            //cameraHandler = CameraHandler.singleton;
+        //cameraHandler = CameraHandler.singleton;
         //}
 
         void Start()
@@ -35,6 +37,7 @@ namespace MK
             inputHandler = GetComponent<InputHandler>();
             anim = GetComponentInChildren<Animator>();
             playerLocomotion = GetComponent<PlayerLocomotion>();
+            playerStats = GetComponent<PlayerStats>();
             cameraHandler = FindObjectOfType<CameraHandler>();
             interactableUI = FindObjectOfType<InteractableUI>();
         }
@@ -47,14 +50,13 @@ namespace MK
             canDoCombo = anim.GetBool("Can Do Combo");
             isUsingRightHand = anim.GetBool("Is Using Right Hand");
             isUsingLeftHand = anim.GetBool("Is Using Left Hand");
+            isInvulnerable = anim.GetBool("Is Invulnerable");
             anim.SetBool("Is In Air", isInAir);
             
             inputHandler.TickInput(delta);
-            
-            
             playerLocomotion.HandleRollingAndSprinting(delta);
-            
             playerLocomotion.HandleJumping();
+            playerStats.RegenerateStamina();
 
             CheckForInteractableObject();
         }

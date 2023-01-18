@@ -989,6 +989,12 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
+  - m_Name: Is Invulnerable
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -1114,7 +1120,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38cdefc747dd4934a85053ee463740db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetBool: Is Interacting,Can Do Combo,Is Using Right Hand,Is Using Left Hand
+  targetBool: Is Interacting,Can Do Combo,Is Using Right Hand,Is Using Left Hand,Is
+    Invulnerable
   status: 0
   onExit: 0
 --- !u!1107 &1382259883579732748

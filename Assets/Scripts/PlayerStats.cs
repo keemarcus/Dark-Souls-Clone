@@ -9,10 +9,15 @@ namespace MK
         public HealthBar healthBar;
         public StaminaBar staminaBar;
 
+        PlayerManager playerManager;
         PlayerAnimatorHandler animatorHandler;
+
+        public float staminaRegenerationAmount = 30f;
+        public float staminaRegenerationTimer;
 
         void Start()
         {
+            playerManager = GetComponent<PlayerManager>();
             animatorHandler = GetComponentInChildren<PlayerAnimatorHandler>();
             healthBar = FindObjectOfType<HealthBar>();
             staminaBar = FindObjectOfType<StaminaBar>();
@@ -36,7 +41,7 @@ namespace MK
             return maxHealth;
         }
 
-        private int SetMaxStaminaFromStaminaLevel()
+        private float SetMaxStaminaFromStaminaLevel()
         {
             maxStamina = staminaLevel * 20;
             return maxStamina;
@@ -44,7 +49,7 @@ namespace MK
 
         public void TakeDamage(int damage)
         {
-            if (isDead) { return; }
+            if (isDead || playerManager.isInvulnerable) { Debug.Log("invlulnerable");  return; }
             currentHealth -= damage;
 
             healthBar.SetCurrentHealth(currentHealth);
@@ -65,6 +70,28 @@ namespace MK
             currentStamina -= staminaUsed;
 
             staminaBar.SetCurrentStamina(currentStamina);
+        }
+
+        public void RegenerateStamina()
+        {
+            if (playerManager.isInteracting)
+            {
+                staminaRegenerationTimer = 0f;
+            }
+            else
+            {
+                if(staminaRegenerationTimer <= 1f)
+                {
+                    staminaRegenerationTimer += Time.deltaTime;
+                }
+
+                if (currentStamina < maxStamina && staminaRegenerationTimer > 1f)
+                {
+                    currentStamina += staminaRegenerationAmount * Time.deltaTime;
+                    staminaBar.SetCurrentStamina(currentStamina);
+                }
+            }
+            
         }
 
     }

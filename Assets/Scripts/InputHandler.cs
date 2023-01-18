@@ -47,6 +47,7 @@ namespace MK
         PlayerInventory playerInventory;
         WeaponSlotManager weaponSlotManager;
         PlayerManager playerManager;
+        PlayerStats playerStats;
         CameraHandler cameraHandler;
         AnimatorHandler animatorHandler;
         UIManager uiManager;
@@ -61,6 +62,7 @@ namespace MK
             playerAttacker = GetComponent<PlayerAttacker>();
             playerInventory = GetComponent<PlayerInventory>();
             playerManager = GetComponent<PlayerManager>();
+            playerStats = GetComponent<PlayerStats>();
             weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
             uiManager = FindObjectOfType<UIManager>();
             cameraHandler = FindObjectOfType<CameraHandler>();
@@ -135,7 +137,7 @@ namespace MK
 
         private void HandleRollInput(float delta)
         {
-            if (pausedFlag) { return; }
+            if (pausedFlag || playerStats.currentStamina <= 0f) { return; }
 
             b_input = inputActions.PlayerActions.Roll.phase == UnityEngine.InputSystem.InputActionPhase.Started;
             sprintFlag = b_input;
@@ -159,11 +161,12 @@ namespace MK
 
         private void HandleAttackInput(float delta)
         {
-            if (pausedFlag) { return; }
+            if (pausedFlag || playerStats.currentStamina <= 0f) { return; }
 
             // rb/rt handle right hand weapons
             if (rb_input)
             {
+                //if(playerStats.currentStamina <= 0f) { return; }
                 if (playerManager.canDoCombo)
                 {
                     comboFlag = true;

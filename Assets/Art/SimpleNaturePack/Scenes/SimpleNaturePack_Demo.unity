@@ -4461,6 +4461,7 @@ MonoBehaviour:
   staminaLevel: 10
   maxStamina: 0
   currentStamina: 0
+  isDead: 0
   teamID: 
 --- !u!114 &439570458
 MonoBehaviour:
@@ -4477,7 +4478,7 @@ MonoBehaviour:
   lockOnTransform: {fileID: 804320016}
   navMeshAgent: {fileID: 0}
   enemyRigidBody: {fileID: 0}
-  currentState: {fileID: 32311640}
+  currentState: {fileID: 293389158}
   currentTarget: {fileID: 0}
   isPerformingAction: 0
   isInteracting: 0
@@ -11903,6 +11904,7 @@ MonoBehaviour:
   staminaLevel: 10
   maxStamina: 0
   currentStamina: 0
+  isDead: 0
   teamID: 
 --- !u!95 &709870824
 Animator:
@@ -13066,6 +13068,7 @@ MonoBehaviour:
   staminaLevel: 10
   maxStamina: 0
   currentStamina: 0
+  isDead: 0
   teamID: 
 --- !u!95 &828934013
 Animator:

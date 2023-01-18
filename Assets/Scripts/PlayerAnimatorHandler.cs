@@ -114,6 +114,16 @@ namespace MK
             anim.SetBool("Can Do Combo", false);
         }
 
+        public void EnableIsInvulnerable()
+        {
+            anim.SetBool("Is Invulnerable", true);
+        }
+
+        public void DisableIsInvulnerable()
+        {
+            anim.SetBool("Is Invulnerable", false);
+        }
+
         private void OnAnimatorMove()
         {
             if(!playerManager.isInteracting) { return; }
