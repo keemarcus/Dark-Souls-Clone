@@ -44080,6 +44080,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2823617046835543065, guid: c59127c168757944f815b3a9e2ede1c3, type: 3}
+      propertyPath: currentSpell
+      value: 
+      objectReference: {fileID: 11400000, guid: 30b1298ffe7183146be8f95ebc4893b4, type: 2}
+    - target: {fileID: 2823617046835543065, guid: c59127c168757944f815b3a9e2ede1c3, type: 3}
       propertyPath: unarmedWeapon
       value: 
       objectReference: {fileID: 11400000, guid: 4926fcd995e77ac4fbe1702dd74848c0, type: 2}
@@ -44110,7 +44114,7 @@ PrefabInstance:
     - target: {fileID: 2823617046835543065, guid: c59127c168757944f815b3a9e2ede1c3, type: 3}
       propertyPath: weaponsInRightHandSlots.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 8eebdcc57fc17b84fbc3958566251bd4, type: 2}
+      objectReference: {fileID: 11400000, guid: cd32da2362f41c24085f3756244adde1, type: 2}
     - target: {fileID: 2823617046835543065, guid: c59127c168757944f815b3a9e2ede1c3, type: 3}
       propertyPath: weaponsInRightHandSlots.Array.data[1]
       value: 
@@ -44575,13 +44579,32 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6804576207798939731, guid: c59127c168757944f815b3a9e2ede1c3, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c59127c168757944f815b3a9e2ede1c3, type: 3}
 --- !u!4 &2083525633 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4902867350272702753, guid: c59127c168757944f815b3a9e2ede1c3, type: 3}
   m_PrefabInstance: {fileID: 2083525632}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2083525634 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5011800444277007357, guid: c59127c168757944f815b3a9e2ede1c3, type: 3}
+  m_PrefabInstance: {fileID: 2083525632}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2083525635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083525634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f426a165cb38ca45b520b22fab17fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastAttack: 
 --- !u!1 &2083644160
 GameObject:
   m_ObjectHideFlags: 0

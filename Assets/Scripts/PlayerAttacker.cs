@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,16 +9,20 @@ namespace MK
     {
         PlayerAnimatorHandler animatorHandler;
         PlayerManager playerManager;
+        PlayerStats playerStats;
+        PlayerInventory playerInventory;
         InputHandler inputHandler;
         WeaponSlotManager weaponSlotManager;
         public string lastAttack;
 
         private void Start()
         {
-            animatorHandler = GetComponentInChildren<PlayerAnimatorHandler>();
-            weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
-            inputHandler = GetComponent<InputHandler>();
-            playerManager = GetComponent<PlayerManager>();
+            animatorHandler = GetComponent<PlayerAnimatorHandler>();
+            weaponSlotManager = GetComponent<WeaponSlotManager>();
+            inputHandler = GetComponentInParent<InputHandler>();
+            playerManager = GetComponentInParent<PlayerManager>();
+            playerStats = GetComponentInParent<PlayerStats>();
+            playerInventory = GetComponentInParent<PlayerInventory>();
         }
 
         public void HandleWeaponCombo(WeaponItem weapon, bool isLeftHand)
@@ -79,6 +84,62 @@ namespace MK
                 lastAttack = weapon.OH_Heavy_Attack_01;
             }
         }
+        #region Input Actions
+        public void HandleRBAction()
+        {
+            if (playerInventory.rightWeapon.isMeleeWeapon)
+            {
+                //Handle Melee Action
+                PerformRBMeleeAction();
+            } else if (playerInventory.rightWeapon.isSpellCaster || playerInventory.rightWeapon.isFaithCaster || playerInventory.rightWeapon.isPyroCaster)
+            {
+                // Handle Magic Action
+                PerformRBMagicAction(playerInventory.rightWeapon);
+            }//else if (playerInventory.rightWeapon.isFaithCaster)
+            {
+                // Handle Miracle Action
+            }//else if (playerInventory.rightWeapon.isPyroCaster)
+            {
+                // Handle Pyro Action
+            }
+            
+        }
+        #endregion
+
+        #region Attack Actions
+        private void PerformRBMeleeAction()
+        {
+            if (playerManager.canDoCombo)
+            {
+                inputHandler.comboFlag = true;
+                animatorHandler.anim.SetBool("Is Using Right Hand", true);
+                HandleWeaponCombo(playerInventory.rightWeapon, false);
+                inputHandler.comboFlag = false;
+            }
+            else
+            {
+                animatorHandler.anim.SetBool("Is Using Right Hand", true);
+                HandleOHLightAttack(playerInventory.rightWeapon, false);
+            }
+        }
+
+        private void PerformRBMagicAction(WeaponItem weapon)
+        {
+            if (weapon.isFaithCaster)
+            {
+                if(playerInventory.currentSpell != null && playerInventory.currentSpell.isFaithSpell)
+                {
+                    // Check For FP
+                    // Attempt To Cast The Spell
+                    playerInventory.currentSpell.AttemptToCastSpell(animatorHandler, playerStats);
+                }
+            }
+        }
+        private void SuccessfullyCastSpell()
+        {
+            playerInventory.currentSpell.SuccessfullyCastSpell(animatorHandler, playerStats);
+        }
+        #endregion
     }
 }
 

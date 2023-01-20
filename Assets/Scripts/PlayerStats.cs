@@ -94,6 +94,11 @@ namespace MK
             
         }
 
+        public void HealPlayer(int healAmount)
+        {
+            currentHealth = Mathf.Clamp(currentHealth += healAmount, 0, maxHealth);
+            healthBar.SetCurrentHealth(currentHealth);
+        }
     }
 }
 

@@ -28,3 +28,7 @@ MonoBehaviour:
   baseStaminaCost: 25
   lightAttackMultiplier: 1
   heavyAttackMultiplier: 1.5
+  isSpellCaster: 0
+  isFaithCaster: 0
+  isPyroCaster: 0
+  isMeleeWeapon: 1

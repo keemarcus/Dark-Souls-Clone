@@ -59,7 +59,7 @@ namespace MK
 
         private void Awake()
         {
-            playerAttacker = GetComponent<PlayerAttacker>();
+            playerAttacker = GetComponentInChildren<PlayerAttacker>();
             playerInventory = GetComponent<PlayerInventory>();
             playerManager = GetComponent<PlayerManager>();
             playerStats = GetComponent<PlayerStats>();
@@ -166,19 +166,7 @@ namespace MK
             // rb/rt handle right hand weapons
             if (rb_input)
             {
-                //if(playerStats.currentStamina <= 0f) { return; }
-                if (playerManager.canDoCombo)
-                {
-                    comboFlag = true;
-                    animatorHandler.anim.SetBool("Is Using Right Hand", true);
-                    playerAttacker.HandleWeaponCombo(playerInventory.rightWeapon, false);
-                    comboFlag = false;
-                }
-                else
-                {
-                    animatorHandler.anim.SetBool("Is Using Right Hand", true);
-                    playerAttacker.HandleOHLightAttack(playerInventory.rightWeapon, false);
-                }
+                playerAttacker.HandleRBAction();
             }
             if (rt_input)
             {
