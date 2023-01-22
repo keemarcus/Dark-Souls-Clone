@@ -125,11 +125,17 @@ namespace MK
 
         private void PerformRBMagicAction(WeaponItem weapon)
         {
+            if (playerManager.isInteracting) { return; }
             if (weapon.isFaithCaster)
             {
                 if(playerInventory.currentSpell != null && playerInventory.currentSpell.isFaithSpell)
                 {
-                    // Check For FP
+                    // Check For Focus Points
+                    if(playerStats.currentFocusPoints < playerInventory.currentSpell.focusPointCost) 
+                    {
+                        animatorHandler.PlayTargetAnimation("Take Damage", true);
+                        return; 
+                    }
                     // Attempt To Cast The Spell
                     playerInventory.currentSpell.AttemptToCastSpell(animatorHandler, playerStats);
                 }

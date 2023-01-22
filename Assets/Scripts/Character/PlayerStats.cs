@@ -8,6 +8,7 @@ namespace MK
     {
         public HealthBar healthBar;
         public StaminaBar staminaBar;
+        public FocusPointBar focusPointBar;
 
         PlayerManager playerManager;
         PlayerAnimatorHandler animatorHandler;
@@ -21,6 +22,7 @@ namespace MK
             animatorHandler = GetComponentInChildren<PlayerAnimatorHandler>();
             healthBar = FindObjectOfType<HealthBar>();
             staminaBar = FindObjectOfType<StaminaBar>();
+            focusPointBar = FindObjectOfType<FocusPointBar>();
 
             maxHealth = SetMaxHealthFromHealthLevel();
             currentHealth = maxHealth;
@@ -31,6 +33,11 @@ namespace MK
             currentStamina = maxStamina;
             staminaBar.SetMaxStamina(maxStamina);
             staminaBar.SetCurrentStamina(currentStamina);
+
+            maxFocusPoints = SetMaxFocusFromFocusLevel();
+            currentFocusPoints = maxFocusPoints;
+            focusPointBar.SetMaxFocusPoints(maxFocusPoints);
+            focusPointBar.SetCurrentFocusPoints(currentFocusPoints);
 
             this.teamID = "Player";
         }
@@ -45,6 +52,11 @@ namespace MK
         {
             maxStamina = staminaLevel * 20;
             return maxStamina;
+        }
+        private float SetMaxFocusFromFocusLevel()
+        {
+            maxFocusPoints = focusLevel * 20;
+            return maxFocusPoints;
         }
 
         public void TakeDamage(int damage)
@@ -70,6 +82,13 @@ namespace MK
             currentStamina -= staminaUsed;
 
             staminaBar.SetCurrentStamina(currentStamina);
+        }
+
+        public void DrainFocusPoints(int focusPointsUsed)
+        {
+            currentFocusPoints = Mathf.Clamp(currentFocusPoints - focusPointsUsed, 0, maxFocusPoints);
+
+            focusPointBar.SetCurrentFocusPoints(currentFocusPoints);
         }
 
         public void RegenerateStamina()

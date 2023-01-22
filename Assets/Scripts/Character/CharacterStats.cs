@@ -15,6 +15,10 @@ namespace MK
         public float currentStamina;
         public bool isDead;
 
+        public int focusLevel = 10;
+        public float maxFocusPoints;
+        public float currentFocusPoints;
+
         public string teamID;
     }
 }

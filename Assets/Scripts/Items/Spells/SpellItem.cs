@@ -11,6 +11,9 @@ namespace MK
 
         public string spellAnimation;
 
+        [Header("Spell Cast")]
+        public int focusPointCost;
+
         [Header("Spell Type")]
         public bool isFaithSpell;
         public bool isMagicSpell;
@@ -27,6 +30,7 @@ namespace MK
         public virtual void SuccessfullyCastSpell(AnimatorHandler animatorHandler, PlayerStats playerStats)
         {
             Debug.Log("You successfully cast a spell");
+            playerStats.DrainFocusPoints(focusPointCost);
         }
     }
 }
