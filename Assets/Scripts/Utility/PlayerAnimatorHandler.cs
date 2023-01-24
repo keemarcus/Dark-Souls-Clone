@@ -13,7 +13,6 @@ namespace MK
         private PlayerLocomotion playerLocomotion;
         int vertical;
         int horizontal;
-        public bool canRotate;
         
         public void Initialize()
         {
@@ -93,17 +92,18 @@ namespace MK
 
             anim.applyRootMotion = isInteracting;
             anim.SetBool("Is Interacting", isInteracting);
+            anim.SetBool("Can Rotate", false);
             anim.CrossFade(targetAnim, 0.2f);
         }
 
         public void CanRotate()
         {
-            canRotate = true;
+            anim.SetBool("Can Rotate", true);
         }
 
         public void StopRotation()
         {
-            canRotate = false;
+            anim.SetBool("Can Rotate", false);
         }
 
         public void EnableCombo()

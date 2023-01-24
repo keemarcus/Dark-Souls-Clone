@@ -44864,6 +44864,10 @@ PrefabInstance:
       value: 320
       objectReference: {fileID: 0}
     - target: {fileID: 8831382721055155620, guid: c59127c168757944f815b3a9e2ede1c3, type: 3}
+      propertyPath: rotationSpeed
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 8831382721055155620, guid: c59127c168757944f815b3a9e2ede1c3, type: 3}
       propertyPath: characterCollider
       value: 
       objectReference: {fileID: 1595356781}
@@ -46361,6 +46365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
+  canRotate: 0
 --- !u!114 &1523397539293099592
 MonoBehaviour:
   m_ObjectHideFlags: 0

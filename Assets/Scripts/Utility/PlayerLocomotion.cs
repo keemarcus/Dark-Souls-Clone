@@ -8,6 +8,7 @@ namespace MK
     {
         CameraHandler cameraHandler;
         PlayerManager playerManager;
+        PlayerStats playerStats;
         Transform cameraObject;
         InputHandler inputHandler;
         public Vector3 moveDirection;
@@ -42,12 +43,23 @@ namespace MK
         [SerializeField]
         float fallingSpeed = 80f;
 
+        [Header("Stamina Costs")]
+        [SerializeField]
+        int rollStaminaCost = 15;
+        [SerializeField]
+        int backStepStaminaCost = 12;
+        [SerializeField]
+        int jumpStaminaCost = 15;
+        [SerializeField]
+        int sprintStaminaCost = 1;
+
         public CapsuleCollider characterCollider;
         public CapsuleCollider characterCollisionBlocker;
 
-        void Start()
+        private void Awake()
         {
             playerManager = GetComponent<PlayerManager>();
+            playerStats = GetComponent<PlayerStats>();
             rigidbody = GetComponent<Rigidbody>();
             inputHandler = GetComponent<InputHandler>();
             animatorHandler = GetComponentInChildren<PlayerAnimatorHandler>();
@@ -66,44 +78,47 @@ namespace MK
         Vector3 normalVector;
         Vector3 targetPosition;
 
-        private void HandleRotation(float delta)
+        public void HandleRotation(float delta)
         {
-            if (inputHandler.lockOnFlag && !inputHandler.sprintFlag && !inputHandler.rollFlag)
+            if (animatorHandler.canRotate)
             {
-                Vector3 rotationDirection = moveDirection;
-                rotationDirection = cameraHandler.currentLockOnTarget.transform.position - transform.position;
-                rotationDirection.Normalize();
-                rotationDirection.y = 0;
-                    
-
-                Quaternion tr = Quaternion.LookRotation(rotationDirection);
-                Quaternion targetRotation = Quaternion.Slerp(transform.rotation, tr, rotationSpeed * Time.deltaTime);
-
-                transform.rotation = targetRotation;
-            }
-            else
-            {
-                Vector3 targetDirection = Vector3.zero;
-                float moveOverride = inputHandler.moveAmount;
-
-                targetDirection = cameraObject.forward * inputHandler.vertical;
-                targetDirection += cameraObject.right * inputHandler.horizontal;
-                targetDirection.Normalize();
-                targetDirection.y = 0f;
-
-                //if (inputHandler.pausedFlag) { targetDirection = Vector3.zero; }
-
-                if (targetDirection == Vector3.zero)
+                if (inputHandler.lockOnFlag && !inputHandler.sprintFlag && !inputHandler.rollFlag)
                 {
-                    targetDirection = myTransform.forward;
+                    Vector3 rotationDirection = moveDirection;
+                    rotationDirection = cameraHandler.currentLockOnTarget.transform.position - transform.position;
+                    rotationDirection.Normalize();
+                    rotationDirection.y = 0;
+
+
+                    Quaternion tr = Quaternion.LookRotation(rotationDirection);
+                    Quaternion targetRotation = Quaternion.Slerp(transform.rotation, tr, rotationSpeed * Time.deltaTime);
+
+                    transform.rotation = targetRotation;
                 }
+                else
+                {
+                    Vector3 targetDirection = Vector3.zero;
+                    float moveOverride = inputHandler.moveAmount;
 
-                float rs = rotationSpeed;
-                Quaternion tr = Quaternion.LookRotation(targetDirection);
-                Quaternion targetRotation = Quaternion.Slerp(myTransform.rotation, tr, rs * delta);
+                    targetDirection = cameraObject.forward * inputHandler.vertical;
+                    targetDirection += cameraObject.right * inputHandler.horizontal;
+                    targetDirection.Normalize();
+                    targetDirection.y = 0f;
 
-                myTransform.rotation = targetRotation;
-            }  
+                    //if (inputHandler.pausedFlag) { targetDirection = Vector3.zero; }
+
+                    if (targetDirection == Vector3.zero)
+                    {
+                        targetDirection = myTransform.forward;
+                    }
+
+                    float rs = rotationSpeed;
+                    Quaternion tr = Quaternion.LookRotation(targetDirection);
+                    Quaternion targetRotation = Quaternion.Slerp(myTransform.rotation, tr, rs * delta);
+
+                    myTransform.rotation = targetRotation;
+                }
+            }
         }
 
         public void HandleMovement(float delta)
@@ -123,7 +138,7 @@ namespace MK
             if (inputHandler.sprintFlag && inputHandler.moveAmount > 0.5f) { 
                 speed = sprintingSpeed;
                 playerManager.isSprinting = true;
-                
+                playerStats.DrainStamina(sprintStaminaCost);
             }else
             {
                 if(inputHandler.moveAmount < 0.5f)
@@ -144,17 +159,15 @@ namespace MK
             else
             {
                 animatorHandler.UpdateAnimatorValues(inputHandler.moveAmount, 0, playerManager.isSprinting);
-            }
-
-            if (animatorHandler.canRotate)
-            {
-                HandleRotation(delta);
-            }
+            } 
         }
 
         public void HandleRollingAndSprinting(float delta)
         {
             if (playerManager.isInteracting) { return; }
+
+            // check for stamina
+            if(playerStats.currentStamina <= 0) { return; }
 
             if (inputHandler.rollFlag)
             {
@@ -167,10 +180,12 @@ namespace MK
                     moveDirection.y = 0f;
                     Quaternion rollRotation = Quaternion.LookRotation(moveDirection);
                     myTransform.rotation = rollRotation;
+                    playerStats.DrainStamina(rollStaminaCost);
                 }
                 else
                 {
                     animatorHandler.PlayTargetAnimation("Backstep", true);
+                    playerStats.DrainStamina(backStepStaminaCost);
                 }
             }
         }
@@ -259,6 +274,8 @@ namespace MK
         {
             if (playerManager.isInteracting) { return; }
             if (inputHandler.pausedFlag) { return; }
+            // check for stamina
+            if (playerStats.currentStamina <= 0) { return; }
 
             if (inputHandler.a_input)
             {
@@ -270,11 +287,13 @@ namespace MK
                     moveDirection.y = 0;
                     Quaternion jumpRotation = Quaternion.LookRotation(moveDirection);
                     myTransform.rotation = jumpRotation;
+                    playerStats.DrainStamina(jumpStaminaCost);
                 }
                 else
                 {
                     moveDirection = Vector3.zero;
                     animatorHandler.PlayTargetAnimation("Jump", true);
+                    playerStats.DrainStamina(jumpStaminaCost);
                     //Quaternion jumpRotation = Quaternion.LookRotation(moveDirection);
                     //myTransform.rotation = jumpRotation;
                 }

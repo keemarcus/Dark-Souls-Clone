@@ -30,6 +30,9 @@ namespace MK
 
         public void HandleWeaponCombo(WeaponItem weapon, bool isLeftHand)
         {
+            // check for stamina
+            if (playerStats.currentStamina <= 0) { return; }
+
             if (inputHandler.comboFlag)
             {
                 animatorHandler.anim.SetBool("Can Do Combo", false);
@@ -56,6 +59,8 @@ namespace MK
         {
             if (inputHandler.rollFlag) { return; }
             if (playerManager.isInteracting) { return; }
+            // check for stamina
+            if (playerStats.currentStamina <= 0) { return; }
 
             weaponSlotManager.attackingWeapon = weapon;
             if (inputHandler.twoHandFlag)
@@ -74,6 +79,8 @@ namespace MK
         {
             if (inputHandler.rollFlag) { return; }
             if (playerManager.isInteracting) { return; }
+            // check for stamina
+            if (playerStats.currentStamina <= 0) { return; }
 
             weaponSlotManager.attackingWeapon = weapon;
             if (inputHandler.twoHandFlag)
@@ -152,6 +159,9 @@ namespace MK
 
         public void AttemptBackStabOrRiposte()
         {
+            // check for stamina
+            if (playerStats.currentStamina <= 0) { return; }
+
             RaycastHit hit;
             if (Physics.Raycast(inputHandler.criticalAttackRayCastStartPoint.position, transform.TransformDirection(Vector3.forward), out hit, 1.5f, backStabLayer))
             {

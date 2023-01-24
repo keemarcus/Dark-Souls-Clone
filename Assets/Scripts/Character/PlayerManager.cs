@@ -11,6 +11,7 @@ namespace MK
         CameraHandler cameraHandler;
         PlayerLocomotion playerLocomotion;
         PlayerStats playerStats;
+        PlayerAnimatorHandler animatorHandler;
         InteractableUI interactableUI;
         public GameObject interactableUIGameObject;
         public GameObject itemPopupUIGameObject;
@@ -32,12 +33,13 @@ namespace MK
         //cameraHandler = CameraHandler.singleton;
         //}
 
-        void Start()
+        private void Awake()
         {
             inputHandler = GetComponent<InputHandler>();
             anim = GetComponentInChildren<Animator>();
             playerLocomotion = GetComponent<PlayerLocomotion>();
             playerStats = GetComponent<PlayerStats>();
+            animatorHandler = GetComponentInChildren<PlayerAnimatorHandler>();
             cameraHandler = FindObjectOfType<CameraHandler>();
             interactableUI = FindObjectOfType<InteractableUI>();
             backStabCollider = GetComponentInChildren<BackStabCollider>();
@@ -54,6 +56,7 @@ namespace MK
             isInvulnerable = anim.GetBool("Is Invulnerable");
             anim.SetBool("Is In Air", isInAir);
             anim.SetBool("Is Dead", playerStats.isDead);
+            animatorHandler.canRotate = anim.GetBool("Can Rotate");
 
             inputHandler.TickInput(delta);
             playerLocomotion.HandleRollingAndSprinting(delta);
@@ -69,6 +72,7 @@ namespace MK
             
             playerLocomotion.HandleFalling(delta, playerLocomotion.moveDirection);
             playerLocomotion.HandleMovement(delta);
+            playerLocomotion.HandleRotation(delta);
 
             if (cameraHandler != null)
             {

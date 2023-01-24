@@ -93,6 +93,8 @@ namespace MK
                 inputActions.DPadActions.DPadLeft.performed += i => d_pad_left = true;
                 inputActions.PlayerActions.Interact.performed += i => x_input = true;
                 inputActions.PlayerActions.Jump.performed += i => a_input = true;
+                inputActions.PlayerActions.Roll.performed += i => b_input = true;
+                inputActions.PlayerActions.Roll.canceled += i => b_input = false;
                 inputActions.PlayerActions.Y.performed += i => y_input = true;
                 inputActions.PlayerActions.Start.performed += i => start_input = true;
                 inputActions.PlayerActions.LockOn.performed += i => lockOnInput = true;
@@ -142,21 +144,29 @@ namespace MK
 
         private void HandleRollInput(float delta)
         {
-            if (pausedFlag || playerStats.currentStamina <= 0f) { return; }
-
-            b_input = inputActions.PlayerActions.Roll.phase == UnityEngine.InputSystem.InputActionPhase.Started;
-            sprintFlag = b_input;
+            if (pausedFlag) { return; }
 
             if (b_input)
             {
                 rollInputTimer += delta;
-                //sprintFlag = true;
+                
+                if(playerStats.currentStamina <= 0f)
+                {
+                    b_input = false;
+                    sprintFlag = false;
+                }
+
+                if(moveAmount > 0.5f && playerStats.currentStamina > 0f)
+                {
+                    sprintFlag = true;
+                }
             }
             else
             {
-                if(rollInputTimer > 0 && rollInputTimer < 0.15f)
+                sprintFlag = false;
+
+                if (rollInputTimer > 0 && rollInputTimer < 0.15f)
                 {
-                    //sprintFlag = false;
                     rollFlag = true;
                 }
 
@@ -166,7 +176,7 @@ namespace MK
 
         private void HandleAttackInput(float delta)
         {
-            if (pausedFlag || playerStats.currentStamina <= 0f) { return; }
+            if (pausedFlag) { return; }
 
             // rb/rt handle right hand weapons
             if (rb_input)
