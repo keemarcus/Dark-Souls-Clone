@@ -59,6 +59,18 @@ namespace MK
             return maxFocusPoints;
         }
 
+        public void TakeDamageNoAnimation(int damage)
+        {
+            if (isDead) { return; }
+            currentHealth -= damage;
+
+            if (currentHealth <= 0)
+            {
+                currentHealth = 0;
+                isDead = true;
+            }
+        }
+
         public void TakeDamage(int damage)
         {
             if (isDead || playerManager.isInvulnerable) { Debug.Log("invlulnerable");  return; }

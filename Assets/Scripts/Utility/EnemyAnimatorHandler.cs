@@ -7,10 +7,17 @@ namespace MK
     public class EnemyAnimatorHandler : AnimatorHandler
     {
         EnemyManager enemyManager;
+        EnemyStats enemyStats;
         private void Awake()
         {
             anim = GetComponent<Animator>();
             enemyManager = GetComponentInParent<EnemyManager>();
+            enemyStats = GetComponentInParent<EnemyStats>();
+        }
+        public override void TakeCriticalDamageAnimationEvent()
+        {
+            enemyStats.TakeDamageNoAnimation(enemyManager.pendingCriticalDamage);
+            enemyManager.pendingCriticalDamage = 0;
         }
 
         private void OnAnimatorMove()

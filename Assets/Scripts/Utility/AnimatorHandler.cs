@@ -14,6 +14,11 @@ namespace MK
             anim.SetBool("Is Interacting", isInteracting);
             anim.CrossFade(targetAnim, 0.2f);
         }
+
+        public virtual void TakeCriticalDamageAnimationEvent()
+        {
+
+        }
     }
 }
 

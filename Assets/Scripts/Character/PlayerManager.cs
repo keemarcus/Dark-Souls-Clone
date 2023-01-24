@@ -40,6 +40,7 @@ namespace MK
             playerStats = GetComponent<PlayerStats>();
             cameraHandler = FindObjectOfType<CameraHandler>();
             interactableUI = FindObjectOfType<InteractableUI>();
+            backStabCollider = GetComponentInChildren<BackStabCollider>();
         }
 
         void Update()
@@ -52,7 +53,8 @@ namespace MK
             isUsingLeftHand = anim.GetBool("Is Using Left Hand");
             isInvulnerable = anim.GetBool("Is Invulnerable");
             anim.SetBool("Is In Air", isInAir);
-            
+            anim.SetBool("Is Dead", playerStats.isDead);
+
             inputHandler.TickInput(delta);
             playerLocomotion.HandleRollingAndSprinting(delta);
             playerLocomotion.HandleJumping();
@@ -81,6 +83,7 @@ namespace MK
             inputHandler.rollFlag = false;
             inputHandler.rb_input = false;
             inputHandler.rt_input = false;
+            inputHandler.critical_attack_input = false;
             inputHandler.lb_input = false;
             inputHandler.lt_input = false;
             inputHandler.d_pad_up = false;

@@ -7,6 +7,7 @@ namespace MK
     public class PlayerAnimatorHandler : AnimatorHandler
     {
         PlayerManager playerManager;
+        PlayerStats playerStats;
         
         private InputHandler inputHandler;
         private PlayerLocomotion playerLocomotion;
@@ -17,6 +18,7 @@ namespace MK
         public void Initialize()
         {
             playerManager = GetComponentInParent<PlayerManager>();
+            playerStats = GetComponentInParent<PlayerStats>();
             anim = GetComponent<Animator>();
             inputHandler = GetComponentInParent<InputHandler>();
             playerLocomotion = GetComponentInParent<PlayerLocomotion>();
@@ -122,6 +124,12 @@ namespace MK
         public void DisableIsInvulnerable()
         {
             anim.SetBool("Is Invulnerable", false);
+        }
+
+        public override void TakeCriticalDamageAnimationEvent()
+        {
+            playerStats.TakeDamageNoAnimation(playerManager.pendingCriticalDamage);
+            playerManager.pendingCriticalDamage = 0;
         }
 
         private void OnAnimatorMove()

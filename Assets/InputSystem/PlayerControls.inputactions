@@ -191,7 +191,15 @@
                     "id": "35a0b521-a62e-4412-8df4-3d7e5ab44498",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Tap"
+                },
+                {
+                    "name": "RB Hold",
+                    "type": "PassThrough",
+                    "id": "ac5b4995-adf8-47d3-9fa9-9b9e92ba4ca3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold"
                 },
                 {
                     "name": "LB",
@@ -476,6 +484,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Y",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f52aecda-270c-4607-9460-5c1850a803a5",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RB Hold",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "50553520-4138-414d-a208-07e90a564c34",
+                    "path": "<XInputController>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RB Hold",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -19,6 +19,7 @@ namespace MK
         public bool start_input;
         public bool rb_input;
         public bool rt_input;
+        public bool critical_attack_input;
         public bool lb_input;
         public bool lt_input;
         public bool lockOnInput;
@@ -40,7 +41,9 @@ namespace MK
         public bool pausedFlag;
 
         public float rollInputTimer;
-        
+
+        public Transform criticalAttackRayCastStartPoint;
+
 
         PlayerControls inputActions;
         PlayerAttacker playerAttacker;
@@ -83,6 +86,7 @@ namespace MK
 
                 inputActions.PlayerActions.RB.performed += i => rb_input = true;
                 inputActions.PlayerActions.RT.performed += i => rt_input = true;
+                inputActions.PlayerActions.RBHold.performed += i => critical_attack_input = true;
                 inputActions.PlayerActions.LB.performed += i => lb_input = true;
                 inputActions.PlayerActions.LT.performed += i => lt_input = true;
                 inputActions.DPadActions.DPadRight.performed += i => d_pad_right = true;
@@ -113,6 +117,7 @@ namespace MK
             HandleInventoryInput();
             HandleLockOnInput(delta);
             HandleTwoHandInput();
+            HandleCriticalAttackInput();
         }
 
         private void HandleMoveInput(float delta)
@@ -301,6 +306,15 @@ namespace MK
                     weaponSlotManager.LoadWeaponOnSlot(playerInventory.rightWeapon, false);
                     weaponSlotManager.LoadWeaponOnSlot(playerInventory.leftWeapon, true);
                 }
+            }
+        }
+
+        private void HandleCriticalAttackInput()
+        {
+            if (critical_attack_input)
+            {
+                critical_attack_input = false;
+                playerAttacker.AttemptBackStabOrRiposte();
             }
         }
 

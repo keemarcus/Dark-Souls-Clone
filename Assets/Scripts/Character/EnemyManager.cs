@@ -41,6 +41,7 @@ namespace MK
             enemyStats = GetComponent<EnemyStats>();
             navMeshAgent = GetComponentInChildren<NavMeshAgent>();
             enemyRigidBody = GetComponent<Rigidbody>();
+            backStabCollider = GetComponentInChildren<BackStabCollider>();
         }
         private void Start()
         {
@@ -54,6 +55,7 @@ namespace MK
             //Debug.Log(enemyLocomotion.)
             HandleRecoveryTimer();
             isInteracting = enemyAnimatorHandler.anim.GetBool("Is Interacting");
+            enemyAnimatorHandler.anim.SetBool("Is Dead", enemyStats.isDead);
         }
 
         private void FixedUpdate()
