@@ -106,12 +106,13 @@ namespace MK
                 playerLocomotion.inAirTimer += Time.deltaTime;
             }
         }
-
+        #region Player Interactions
         public void CheckForInteractableObject()
         {
             RaycastHit hit;
 
-            if (Physics.SphereCast(transform.position, 0.06f, transform.forward, out hit) && hit.collider.tag == "Interactable")
+            Debug.DrawRay(transform.position + (Vector3.up * .5f), transform.forward, Color.blue);
+            if (Physics.SphereCast(transform.position + (Vector3.up * .5f), 0.06f, transform.forward, out hit) && hit.collider.tag == "Interactable")
             {
                 Interactable interactableObject = hit.collider.GetComponent<Interactable>();
 
@@ -142,6 +143,14 @@ namespace MK
                 }
             }
         }
+
+        public void OpenChestInteraction(Transform playerOpeningPosition)
+        {
+            playerLocomotion.rigidbody.velocity = Vector3.zero;
+            transform.position = playerOpeningPosition.position;
+            animatorHandler.PlayTargetAnimation("Open Chest", true);
+        }
+        #endregion
     }
 }
 

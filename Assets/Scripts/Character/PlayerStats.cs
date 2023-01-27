@@ -130,6 +130,11 @@ namespace MK
             currentHealth = Mathf.Clamp(currentHealth += healAmount, 0, maxHealth);
             healthBar.SetCurrentHealth(currentHealth);
         }
+
+        public void AddSouls(int souls)
+        {
+            soulCount += souls;
+        }
     }
 }
 

@@ -6,11 +6,12 @@ namespace MK
 {
     public class EnemyStats : CharacterStats
     {
-        Animator animator;
+        EnemyAnimatorHandler enemyAnimatorHandler;
+        public int soulsAwardedOnDeath = 50;
 
         void Start()
         {
-            animator = GetComponentInChildren<Animator>();
+            enemyAnimatorHandler = GetComponentInChildren<EnemyAnimatorHandler>();
 
             maxHealth = SetMaxHealthFromHealthLevel();
             currentHealth = maxHealth;
@@ -41,15 +42,21 @@ namespace MK
             if (isDead) { return; }
             currentHealth -= damage;
 
-            animator.Play("Take Damage");
+            enemyAnimatorHandler.PlayTargetAnimation("Take Damage", true);
 
             if (currentHealth <= 0)
             {
-                currentHealth = 0;
-                animator.Play("Die");
-                isDead = true;
-                // handle player death later
+                HandleDeath();
             }
+        }
+
+        private void HandleDeath()
+        {
+            currentHealth = 0;
+            enemyAnimatorHandler.PlayTargetAnimation("Die", true);
+            isDead = true;
+
+            
         }
 
     }

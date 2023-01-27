@@ -29,6 +29,21 @@ namespace MK
             Vector3 velocity = deltaPosition / delta;
             enemyManager.enemyRigidBody.velocity = velocity;
         }
+
+        public void AwardSoulsOnDeath()
+        {
+            // look for every player and award them souls
+            PlayerStats[] players = FindObjectsOfType<PlayerStats>();
+            SoulCountBar soulCountBar = FindObjectOfType<SoulCountBar>();
+            foreach (PlayerStats playerStats in players)
+            {
+                playerStats.AddSouls(enemyStats.soulsAwardedOnDeath);
+                if (soulCountBar != null)
+                {
+                    soulCountBar.SetSoulCountText(playerStats.soulCount);
+                }
+            }
+        }
     }
 }
 
