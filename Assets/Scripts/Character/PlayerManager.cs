@@ -112,7 +112,7 @@ namespace MK
             RaycastHit hit;
 
             Debug.DrawRay(transform.position + (Vector3.up * .5f), transform.forward, Color.blue);
-            if (Physics.SphereCast(transform.position + (Vector3.up * .5f), 0.06f, transform.forward, out hit) && hit.collider.tag == "Interactable")
+            if (Physics.SphereCast(transform.position + (Vector3.up * .5f), 0.06f, transform.forward, out hit) && hit.collider.tag == "Interactable" && Vector3.Distance(hit.collider.transform.position, transform.position) <= 1f)
             {
                 Interactable interactableObject = hit.collider.GetComponent<Interactable>();
 
