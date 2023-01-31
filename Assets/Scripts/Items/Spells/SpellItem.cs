@@ -10,6 +10,8 @@ namespace MK
         public GameObject spellCastFX;
 
         public string spellAnimation;
+        public string spellCastPointName;
+        protected Transform spellCastPoint;
 
         [Header("Spell Cast")]
         public int focusPointCost;
@@ -23,9 +25,34 @@ namespace MK
         [TextArea]
         public string spellDescription;
 
-        public virtual void AttemptToCastSpell(AnimatorHandler animatorHandler, PlayerStats playerStats)
+        public virtual void AttemptToCastSpell(AnimatorHandler animatorHandler, PlayerStats playerStats, bool isLeftHand)
         {
             Debug.Log("You attempt to cast a spell");
+
+            // get the cast point for this spell
+            switch (spellCastPointName)
+            {
+                case "Chest":
+                    spellCastPoint = playerStats.chestCastPoint;
+                    break;
+                case "Hand":
+                    if (isLeftHand)
+                    {
+                        spellCastPoint = playerStats.leftHandCastPoint;
+                    }
+                    else
+                    {
+                        spellCastPoint = playerStats.rightHandCastPoint;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            if(this.spellCastPoint == null)
+            {
+                Debug.Log("Spell Cast Point Not Found");
+                this.spellCastPoint = animatorHandler.transform;
+            }
         }
         public virtual void SuccessfullyCastSpell(AnimatorHandler animatorHandler, PlayerStats playerStats)
         {

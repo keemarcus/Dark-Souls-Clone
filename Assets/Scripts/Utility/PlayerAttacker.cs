@@ -147,7 +147,7 @@ namespace MK
                         return; 
                     }
                     // Attempt To Cast The Spell
-                    playerInventory.currentSpell.AttemptToCastSpell(animatorHandler, playerStats);
+                    playerInventory.currentSpell.AttemptToCastSpell(animatorHandler, playerStats, false);
                 }
             }
         }

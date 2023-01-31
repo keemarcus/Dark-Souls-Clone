@@ -16,6 +16,11 @@ namespace MK
         public float staminaRegenerationAmount = 30f;
         public float staminaRegenerationTimer;
 
+        [Header("Spell Cast Transforms")]
+        public Transform chestCastPoint;
+        public Transform rightHandCastPoint;
+        public Transform leftHandCastPoint;
+
         void Start()
         {
             playerManager = GetComponent<PlayerManager>();

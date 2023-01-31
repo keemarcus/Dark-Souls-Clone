@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemIcon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   itemName: 
-  spellWarmUpFX: {fileID: 100010, guid: 2f18c32efccdebe42b56f6de27c8c92e, type: 3}
-  spellCastFX: {fileID: 100008, guid: 4248ba95366d5904686c308a47794818, type: 3}
+  spellWarmUpFX: {fileID: 7240149375222060678, guid: 964fee5b3e0fc584cac0984552410f00, type: 3}
+  spellCastFX: {fileID: 7240149375222060678, guid: de46c048baa044146b40d8c6506021c5, type: 3}
   spellAnimation: Heal Spell End
+  spellCastPointName: Chest
   focusPointCost: 35
   isFaithSpell: 1
   isMagicSpell: 0
