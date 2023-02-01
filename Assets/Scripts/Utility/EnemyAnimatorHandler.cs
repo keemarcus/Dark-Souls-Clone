@@ -19,6 +19,22 @@ namespace MK
             enemyStats.TakeDamageNoAnimation(enemyManager.pendingCriticalDamage);
             enemyManager.pendingCriticalDamage = 0;
         }
+        public void EnableIsParrying()
+        {
+            enemyManager.isParrying = true;
+        }
+        public void DisableIsParrying()
+        {
+            enemyManager.isParrying = false;
+        }
+        public void EnableCanBeRiposted()
+        {
+            enemyManager.canBeRiposted = true;
+        }
+        public void DisableCanBeRiposted()
+        {
+            enemyManager.canBeRiposted = false;
+        }
 
         private void OnAnimatorMove()
         {

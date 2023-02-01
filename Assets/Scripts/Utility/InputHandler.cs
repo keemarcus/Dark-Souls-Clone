@@ -206,8 +206,15 @@ namespace MK
             }
             if (lt_input)
             {
-                animatorHandler.anim.SetBool("Is Using Left Hand", true);
-                playerAttacker.HandleOHHeavyAttack(playerInventory.leftWeapon, true);
+                if (twoHandFlag)
+                {
+                    // handle two handing weapon art
+                }
+                else
+                {
+                    // handle normal weapon art
+                    playerAttacker.HandleLTAction();
+                } 
             }
 
         }

@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace MK
 {
-    public class BackStabCollider : MonoBehaviour
+    public class CriticalDamageCollider : MonoBehaviour
     {
-        public Transform backStaberStandPoint;
+        public Transform criticalDamgerStandPoint;
     }
 }
 

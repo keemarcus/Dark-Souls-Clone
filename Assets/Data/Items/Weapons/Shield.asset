@@ -16,6 +16,8 @@ MonoBehaviour:
   itemName: Shield
   modelPrefab: {fileID: 7676615874565401376, guid: 67679265b5363f34892af65bad286103, type: 3}
   isUnarmed: 0
+  baseDamage: 25
+  criticalDamageMultiplier: 4
   Right_Hand_Idle: Right_Arm_Idle_01
   Left_Hand_Idle: Left_Arm_Idle_01
   TH_Idle: TH_Idle_01
@@ -25,10 +27,12 @@ MonoBehaviour:
   TH_Light_Attack_01: Unarmed Attack
   TH_Light_Attack_02: Unarmed Attack
   TH_Heavy_Attack_01: Unarmed Attack
+  weapon_art: Parry
   baseStaminaCost: 20
   lightAttackMultiplier: 1
   heavyAttackMultiplier: 1.5
   isSpellCaster: 0
   isFaithCaster: 0
   isPyroCaster: 0
-  isMeleeWeapon: 1
+  isMeleeWeapon: 0
+  isShield: 1

@@ -6,6 +6,7 @@ namespace MK
 {
     public class DamageCollider : MonoBehaviour
     {
+        public CharacterManager characterManager;
         Collider damageCollider;
         public int currentWeaponDamage = 25;
 
@@ -30,14 +31,36 @@ namespace MK
             if(collision.tag == "Player")
             {
                 PlayerStats playerStats = collision.GetComponent<PlayerStats>();
+                CharacterManager enemyCharacterManager = collision.GetComponent<CharacterManager>();
+
+                if(enemyCharacterManager != null)
+                {
+                    if (enemyCharacterManager.isParrying)
+                    {
+                        // check if you are parryable
+
+                        characterManager.GetComponentInChildren<AnimatorHandler>().PlayTargetAnimation("Parried", true);
+                    }
+                }
 
                 if(playerStats != null) { playerStats.TakeDamage(currentWeaponDamage); }
             }
             if(collision.tag == "Enemy")
             {
                 EnemyStats enemyStats = collision.GetComponent<EnemyStats>();
+                CharacterManager enemyCharacterManager = collision.GetComponent<CharacterManager>();
 
-                if(enemyStats != null) { enemyStats.TakeDamage(currentWeaponDamage); }
+                if (enemyCharacterManager != null)
+                {
+                    if (enemyCharacterManager.isParrying)
+                    {
+                        // check if you are parryable
+
+                        characterManager.GetComponentInChildren<AnimatorHandler>().PlayTargetAnimation("Parried", true);
+                    }
+                }
+
+                if (enemyStats != null) { enemyStats.TakeDamage(currentWeaponDamage); }
             }
         }
     }

@@ -42,7 +42,7 @@ namespace MK
             animatorHandler = GetComponentInChildren<PlayerAnimatorHandler>();
             cameraHandler = FindObjectOfType<CameraHandler>();
             interactableUI = FindObjectOfType<InteractableUI>();
-            backStabCollider = GetComponentInChildren<BackStabCollider>();
+            //backStabCollider = GetComponentInChildren<CriticalDamageCollider>();
         }
 
         void Update()

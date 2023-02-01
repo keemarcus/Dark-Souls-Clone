@@ -41,7 +41,7 @@ namespace MK
             enemyStats = GetComponent<EnemyStats>();
             navMeshAgent = GetComponentInChildren<NavMeshAgent>();
             enemyRigidBody = GetComponent<Rigidbody>();
-            backStabCollider = GetComponentInChildren<BackStabCollider>();
+            //backStabCollider = GetComponentInChildren<CriticalDamageCollider>();
         }
         private void Start()
         {

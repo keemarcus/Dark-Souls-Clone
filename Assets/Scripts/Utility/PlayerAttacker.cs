@@ -16,6 +16,7 @@ namespace MK
         public string lastAttack;
 
         public LayerMask backStabLayer = 1 << 12;
+        public LayerMask riposteLayer = 1 << 13;
 
         private void Start()
         {
@@ -114,6 +115,19 @@ namespace MK
             }
             
         }
+
+        public void HandleLTAction()
+        {
+            if (playerInventory.leftWeapon.isShield)
+            {
+                // perform shield weapon art
+                PerformLTWeaponArt(inputHandler.twoHandFlag);
+            }else if (playerInventory.leftWeapon.isMeleeWeapon)
+            {
+                animatorHandler.anim.SetBool("Is Using Left Hand", true);
+                HandleOHHeavyAttack(playerInventory.leftWeapon, true);
+            }
+        }
         #endregion
 
         #region Attack Actions
@@ -151,6 +165,22 @@ namespace MK
                 }
             }
         }
+
+        private void PerformLTWeaponArt(bool isTwoHanding)
+        {
+            if (playerManager.isInteracting) { return; }
+            
+            if (isTwoHanding) // if we're two-handing, perform weapon art for right weapon
+            {
+                //animatorHandler.PlayTargetAnimation(playerInventory.rightWeapon.weapon_art, true);
+            }
+            else // else, perform weapon art for left weapon
+            {
+                animatorHandler.PlayTargetAnimation(playerInventory.leftWeapon.weapon_art, true);
+            }
+            
+        }
+
         private void SuccessfullyCastSpell()
         {
             playerInventory.currentSpell.SuccessfullyCastSpell(animatorHandler, playerStats);
@@ -168,12 +198,12 @@ namespace MK
                 CharacterManager enemyCharacterManager = hit.transform.gameObject.GetComponentInParent<CharacterManager>();
                 DamageCollider rightWeapon = weaponSlotManager.rightHandDamageCollider;
 
-                if(enemyCharacterManager != null)
+                if (enemyCharacterManager != null)
                 {
                     // check for team ID
 
                     // pull player into a transform behind the enemy
-                    playerManager.transform.position = enemyCharacterManager.backStabCollider.backStaberStandPoint.position;
+                    playerManager.transform.position = enemyCharacterManager.backStabCollider.criticalDamgerStandPoint.position;
 
                     // rotate towards enemy transform
                     Vector3 rotationDirection = playerManager.transform.root.eulerAngles;
@@ -190,8 +220,39 @@ namespace MK
 
                     // play backstab animations
                     animatorHandler.PlayTargetAnimation("Back Stab", true);
-                    enemyCharacterManager.GetComponentInChildren<AnimatorHandler>().PlayTargetAnimation("Back Stabbed", true);  
+                    enemyCharacterManager.GetComponentInChildren<AnimatorHandler>().PlayTargetAnimation("Back Stabbed", true);
                 }
+            }
+            else if (Physics.Raycast(inputHandler.criticalAttackRayCastStartPoint.position, transform.TransformDirection(Vector3.forward), out hit, 1.5f, riposteLayer))
+            {
+                CharacterManager enemyCharacterManager = hit.transform.gameObject.GetComponentInParent<CharacterManager>();
+                DamageCollider rightWeapon = weaponSlotManager.rightHandDamageCollider;
+
+                // check for team ID
+
+                // pull player into a transform behind the enemy
+                if(enemyCharacterManager != null && enemyCharacterManager.canBeRiposted)
+                {
+                    playerManager.transform.position = enemyCharacterManager.riposteCollider.criticalDamgerStandPoint.position;
+
+                    // rotate towards enemy transform
+                    Vector3 rotationDirection = playerManager.transform.root.eulerAngles;
+                    rotationDirection = hit.transform.position - playerManager.transform.position;
+                    rotationDirection.y = 0;
+                    rotationDirection.Normalize();
+                    Quaternion tr = Quaternion.LookRotation(rotationDirection);
+                    Quaternion targetRotation = Quaternion.Slerp(playerManager.transform.rotation, tr, 500 * Time.deltaTime);
+                    playerManager.transform.rotation = targetRotation;
+
+                    // do damage
+                    int criticalDamage = playerInventory.rightWeapon.criticalDamageMultiplier * rightWeapon.currentWeaponDamage;
+                    enemyCharacterManager.pendingCriticalDamage = criticalDamage;
+
+                    // play backstab animations
+                    animatorHandler.PlayTargetAnimation("Riposte", true);
+                    enemyCharacterManager.GetComponentInChildren<AnimatorHandler>().PlayTargetAnimation("Riposted", true);
+                }
+                
             }
         }
     }

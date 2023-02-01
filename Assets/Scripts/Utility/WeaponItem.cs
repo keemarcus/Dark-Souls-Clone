@@ -27,6 +27,9 @@ namespace MK
         public string TH_Light_Attack_02;
         public string TH_Heavy_Attack_01;
 
+        [Header("Weapon Art Animations")]
+        public string weapon_art;
+
         [Header("Stamina Costs")]
         public int baseStaminaCost;
         public float lightAttackMultiplier;
@@ -37,6 +40,7 @@ namespace MK
         public bool isFaithCaster;
         public bool isPyroCaster;
         public bool isMeleeWeapon;
+        public bool isShield;
     }
 }
 
