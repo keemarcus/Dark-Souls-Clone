@@ -2899,6 +2899,7 @@ Transform:
   - {fileID: 1931118970}
   - {fileID: 10787307}
   - {fileID: 108217215}
+  - {fileID: 1944606873}
   m_Father: {fileID: 1911243608}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4674,6 +4675,7 @@ MonoBehaviour:
   canBeRiposted: 0
   canBeParried: 0
   isParrying: 0
+  isBlocking: 0
   pendingCriticalDamage: 0
   navMeshAgent: {fileID: 0}
   enemyRigidBody: {fileID: 0}
@@ -4681,6 +4683,7 @@ MonoBehaviour:
   currentTarget: {fileID: 0}
   isPerformingAction: 0
   isInteracting: 0
+  canDoCombo: 0
   detectionRadius: 20
   minimumDetectionAngle: -50
   maximumDetectionAngle: 50
@@ -11017,6 +11020,65 @@ Transform:
   m_Father: {fileID: 62013659}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &621429999
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 621430000}
+  - component: {fileID: 621430002}
+  - component: {fileID: 621430001}
+  m_Layer: 9
+  m_Name: Blocking Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &621430000
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 621429999}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1869091844}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &621430001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 621429999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f93871bf12b5ab941a944c55ede8b8b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockingCollider: {fileID: 0}
+  blockingPhysicalDamageAbsorption: 0
+--- !u!65 &621430002
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 621429999}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.7454127, y: 1.4665403, z: 0.13657379}
+  m_Center: {x: 0.0047141314, y: 0.7679267, z: 0.30320358}
 --- !u!1001 &624967773
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12109,6 +12171,7 @@ MonoBehaviour:
   canBeRiposted: 0
   canBeParried: 0
   isParrying: 0
+  isBlocking: 0
   pendingCriticalDamage: 0
   navMeshAgent: {fileID: 0}
   enemyRigidBody: {fileID: 0}
@@ -12116,6 +12179,7 @@ MonoBehaviour:
   currentTarget: {fileID: 0}
   isPerformingAction: 0
   isInteracting: 0
+  canDoCombo: 0
   detectionRadius: 20
   minimumDetectionAngle: -50
   maximumDetectionAngle: 50
@@ -13289,6 +13353,7 @@ MonoBehaviour:
   canBeRiposted: 0
   canBeParried: 0
   isParrying: 0
+  isBlocking: 0
   pendingCriticalDamage: 0
   navMeshAgent: {fileID: 0}
   enemyRigidBody: {fileID: 0}
@@ -13296,6 +13361,7 @@ MonoBehaviour:
   currentTarget: {fileID: 0}
   isPerformingAction: 0
   isInteracting: 0
+  canDoCombo: 0
   detectionRadius: 20
   minimumDetectionAngle: -50
   maximumDetectionAngle: 50
@@ -33027,6 +33093,7 @@ Transform:
   - {fileID: 1467251705}
   - {fileID: 1486949478}
   - {fileID: 1016037879}
+  - {fileID: 621430000}
   m_Father: {fileID: 439570460}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -38565,6 +38632,65 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5186735023777053022, guid: ac8efb728f1fb9b4092c4df591c827ca, type: 3}
   m_PrefabInstance: {fileID: 417373006}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1944606872
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1944606873}
+  - component: {fileID: 1944606875}
+  - component: {fileID: 1944606874}
+  m_Layer: 9
+  m_Name: Blocking Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1944606873
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944606872}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 258677795}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1944606874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944606872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f93871bf12b5ab941a944c55ede8b8b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockingCollider: {fileID: 0}
+  blockingPhysicalDamageAbsorption: 0
+--- !u!65 &1944606875
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944606872}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.7454127, y: 1.4665403, z: 0.13657379}
+  m_Center: {x: 0.0047141314, y: 0.7679267, z: 0.30320358}
 --- !u!4 &1947109236 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3899520030807063256, guid: 299e7a1cb6456cf4fa6079cf5978df9b, type: 3}
@@ -40690,6 +40816,19 @@ MonoBehaviour:
   riposteLayer:
     serializedVersion: 2
     m_Bits: 8192
+--- !u!114 &2083525640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083525634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2649004ec4df26141a91c0be44c516d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockingCollider: {fileID: 1944606874}
 --- !u!1 &2083644160
 GameObject:
   m_ObjectHideFlags: 0

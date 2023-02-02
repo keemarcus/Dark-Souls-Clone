@@ -28,11 +28,6 @@ namespace MK
         public bool isUsingLeftHand;
         public bool isInvulnerable;
 
-        //private void Awake()
-        //{
-        //cameraHandler = CameraHandler.singleton;
-        //}
-
         private void Awake()
         {
             inputHandler = GetComponent<InputHandler>();
@@ -54,6 +49,7 @@ namespace MK
             isUsingRightHand = anim.GetBool("Is Using Right Hand");
             isUsingLeftHand = anim.GetBool("Is Using Left Hand");
             isInvulnerable = anim.GetBool("Is Invulnerable");
+            anim.SetBool("Is Blocking", isBlocking);
             anim.SetBool("Is In Air", isInAir);
             anim.SetBool("Is Dead", playerStats.isDead);
             animatorHandler.canRotate = anim.GetBool("Can Rotate");
@@ -88,7 +84,7 @@ namespace MK
             inputHandler.rb_input = false;
             inputHandler.rt_input = false;
             inputHandler.critical_attack_input = false;
-            inputHandler.lb_input = false;
+            //inputHandler.lb_input = false;
             inputHandler.lt_input = false;
             inputHandler.d_pad_up = false;
             inputHandler.d_pad_down = false;

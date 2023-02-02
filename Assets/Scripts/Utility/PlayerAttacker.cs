@@ -8,6 +8,7 @@ namespace MK
     public class PlayerAttacker : MonoBehaviour
     {
         PlayerAnimatorHandler animatorHandler;
+        PlayerEquipmentManager playerEquipmentManager;
         PlayerManager playerManager;
         PlayerStats playerStats;
         PlayerInventory playerInventory;
@@ -21,6 +22,7 @@ namespace MK
         private void Start()
         {
             animatorHandler = GetComponent<PlayerAnimatorHandler>();
+            playerEquipmentManager = GetComponent<PlayerEquipmentManager>();
             weaponSlotManager = GetComponent<WeaponSlotManager>();
             inputHandler = GetComponentInParent<InputHandler>();
             playerManager = GetComponentInParent<PlayerManager>();
@@ -39,18 +41,18 @@ namespace MK
                 animatorHandler.anim.SetBool("Can Do Combo", false);
                 if(lastAttack == weapon.OH_Light_Attack_01)
                 {
-                    animatorHandler.PlayTargetAnimation(weapon.OH_Light_Attack_02, true, isLeftHand);
+                    animatorHandler.PlayTargetAttackAnimation(weapon.OH_Light_Attack_02, true, isLeftHand);
                     lastAttack = weapon.OH_Light_Attack_02;
                 } else if(lastAttack == weapon.OH_Light_Attack_02)
                 {
-                    animatorHandler.PlayTargetAnimation(weapon.OH_Heavy_Attack_01, true, isLeftHand);
+                    animatorHandler.PlayTargetAttackAnimation(weapon.OH_Heavy_Attack_01, true, isLeftHand);
                 } else if(lastAttack == weapon.TH_Light_Attack_01)
                 {
-                    animatorHandler.PlayTargetAnimation(weapon.TH_Light_Attack_02, true, isLeftHand);
+                    animatorHandler.PlayTargetAttackAnimation(weapon.TH_Light_Attack_02, true, isLeftHand);
                     lastAttack = weapon.TH_Light_Attack_02;
                 } else if(lastAttack == weapon.TH_Light_Attack_02)
                 {
-                    animatorHandler.PlayTargetAnimation(weapon.TH_Heavy_Attack_01, true, isLeftHand);
+                    animatorHandler.PlayTargetAttackAnimation(weapon.TH_Heavy_Attack_01, true, isLeftHand);
                 }
             }
             
@@ -66,12 +68,12 @@ namespace MK
             weaponSlotManager.attackingWeapon = weapon;
             if (inputHandler.twoHandFlag)
             {
-                animatorHandler.PlayTargetAnimation(weapon.TH_Light_Attack_01, true, isLeftHand);
+                animatorHandler.PlayTargetAttackAnimation(weapon.TH_Light_Attack_01, true, isLeftHand);
                 lastAttack = weapon.TH_Light_Attack_01;
             }
             else
             {
-                animatorHandler.PlayTargetAnimation(weapon.OH_Light_Attack_01, true, isLeftHand);
+                animatorHandler.PlayTargetAttackAnimation(weapon.OH_Light_Attack_01, true, isLeftHand);
                 lastAttack = weapon.OH_Light_Attack_01;
             }
         }
@@ -86,12 +88,12 @@ namespace MK
             weaponSlotManager.attackingWeapon = weapon;
             if (inputHandler.twoHandFlag)
             {
-                animatorHandler.PlayTargetAnimation(weapon.TH_Heavy_Attack_01, true, isLeftHand);
+                animatorHandler.PlayTargetAttackAnimation(weapon.TH_Heavy_Attack_01, true, isLeftHand);
                 lastAttack = weapon.TH_Heavy_Attack_01;
             }
             else
             {
-                animatorHandler.PlayTargetAnimation(weapon.OH_Heavy_Attack_01, true, isLeftHand);
+                animatorHandler.PlayTargetAttackAnimation(weapon.OH_Heavy_Attack_01, true, isLeftHand);
                 lastAttack = weapon.OH_Heavy_Attack_01;
             }
         }
@@ -127,6 +129,11 @@ namespace MK
                 animatorHandler.anim.SetBool("Is Using Left Hand", true);
                 HandleOHHeavyAttack(playerInventory.leftWeapon, true);
             }
+        }
+
+        public void HandleLBAction()
+        {
+            PerformLBBlockAction();
         }
         #endregion
 
@@ -187,13 +194,24 @@ namespace MK
         }
         #endregion
 
+        #region Defense Actions
+        private void PerformLBBlockAction()
+        {
+            if (playerManager.isInteracting) { return; }
+            if(playerManager.isBlocking) { return; }
+            animatorHandler.PlayTargetAnimation("Block Start", false, true);
+            playerEquipmentManager.OpenBlockingCollider();
+            playerManager.isBlocking = true;
+        }
+        #endregion
+
         public void AttemptBackStabOrRiposte()
         {
             // check for stamina
             if (playerStats.currentStamina <= 0) { return; }
 
             RaycastHit hit;
-            if (Physics.Raycast(inputHandler.criticalAttackRayCastStartPoint.position, transform.TransformDirection(Vector3.forward), out hit, 1.5f, backStabLayer))
+            if (Physics.Raycast(inputHandler.criticalAttackRayCastStartPoint.position, transform.TransformDirection(Vector3.forward), out hit, .5f, backStabLayer))
             {
                 CharacterManager enemyCharacterManager = hit.transform.gameObject.GetComponentInParent<CharacterManager>();
                 DamageCollider rightWeapon = weaponSlotManager.rightHandDamageCollider;
@@ -231,7 +249,7 @@ namespace MK
                 // check for team ID
 
                 // pull player into a transform behind the enemy
-                if(enemyCharacterManager != null && enemyCharacterManager.canBeRiposted)
+                if (enemyCharacterManager != null && enemyCharacterManager.canBeRiposted)
                 {
                     playerManager.transform.position = enemyCharacterManager.riposteCollider.criticalDamgerStandPoint.position;
 
@@ -252,7 +270,7 @@ namespace MK
                     animatorHandler.PlayTargetAnimation("Riposte", true);
                     enemyCharacterManager.GetComponentInChildren<AnimatorHandler>().PlayTargetAnimation("Riposted", true);
                 }
-                
+
             }
         }
     }

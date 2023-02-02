@@ -10,8 +10,20 @@ namespace MK
 
         public EnemyAttackAction currentAttack;
         public EnemyAttackAction[] enemyAttacks;
+
+        bool isComboing = false;
         public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimatorHandler enemyAnimatorHandler)
         {
+            if (enemyManager.isInteracting && !enemyManager.canDoCombo) { return this; }
+            else if(enemyManager.isInteracting && enemyManager.canDoCombo)
+            {
+                if (isComboing)
+                {
+                    enemyAnimatorHandler.PlayTargetAnimation(currentAttack.actionAnimation, true);
+                    isComboing = false;
+                }
+            }
+
             Vector3 targetDirection = enemyManager.currentTarget.transform.position - enemyManager.transform.position;
             float distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, enemyManager.transform.position);
             float viewableAngle = Vector3.Angle(targetDirection, enemyManager.transform.forward);
@@ -23,7 +35,7 @@ namespace MK
             
             if(currentAttack != null)
             {
-                Debug.Log(currentAttack.name);
+                //Debug.Log(currentAttack.name);
                 // if the selected attack is not able to be used, select a new one
                 if (distanceFromTarget < currentAttack.minimumDistanceNeededToAttack ||
                    distanceFromTarget > currentAttack.maximumDistanceNeededToAttack)
@@ -44,12 +56,21 @@ namespace MK
                             enemyAnimatorHandler.PlayTargetAnimation(currentAttack.actionAnimation, true);
                             enemyManager.isPerformingAction = true;
 
-                            // set recovery timer
-                            enemyManager.currentRecoveryTime = currentAttack.recoveryTime;
+                            if (currentAttack.canCombo)
+                            {
+                                currentAttack = currentAttack.comboAttack;
+                                return this;
+                            }
+                            else
+                            {
+                                // set recovery timer
+                                enemyManager.currentRecoveryTime = currentAttack.recoveryTime;
 
-                            currentAttack = null;
+                                currentAttack = null;
 
-                            return combatStanceState;
+                                return combatStanceState;
+                            }
+                            
                         }
                     }
                 }

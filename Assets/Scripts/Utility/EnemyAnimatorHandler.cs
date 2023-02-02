@@ -19,6 +19,35 @@ namespace MK
             enemyStats.TakeDamageNoAnimation(enemyManager.pendingCriticalDamage);
             enemyManager.pendingCriticalDamage = 0;
         }
+        public void CanRotate()
+        {
+            anim.SetBool("Can Rotate", true);
+        }
+
+        public void StopRotation()
+        {
+            anim.SetBool("Can Rotate", false);
+        }
+
+        public void EnableCombo()
+        {
+            anim.SetBool("Can Do Combo", true);
+        }
+
+        public void DisableCombo()
+        {
+            anim.SetBool("Can Do Combo", false);
+        }
+
+        public void EnableIsInvulnerable()
+        {
+            anim.SetBool("Is Invulnerable", true);
+        }
+
+        public void DisableIsInvulnerable()
+        {
+            anim.SetBool("Is Invulnerable", false);
+        }
         public void EnableIsParrying()
         {
             enemyManager.isParrying = true;

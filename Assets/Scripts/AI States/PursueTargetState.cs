@@ -9,6 +9,8 @@ namespace MK
         public CombatStanceState combatStanceState;
         public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimatorHandler enemyAnimatorHandler)
         {
+            if (enemyManager.isInteracting) { return this; }
+
             // chase the target
             #region Chase Target
             if (enemyManager.isPerformingAction) {
@@ -26,8 +28,6 @@ namespace MK
             }
 
             HandleRotateTowardsTarget(enemyManager, distanceFromTarget);
-            enemyManager.navMeshAgent.transform.localPosition = Vector3.zero;
-            enemyManager.navMeshAgent.transform.localRotation = Quaternion.identity;
             #endregion
 
             // if we're within attack range, switch to combat stance state

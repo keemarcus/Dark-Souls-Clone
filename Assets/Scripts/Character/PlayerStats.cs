@@ -76,14 +76,14 @@ namespace MK
             }
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(int damage, string damageAnimation = "Take Damage")
         {
             if (isDead || playerManager.isInvulnerable) { Debug.Log("invlulnerable");  return; }
             currentHealth -= damage;
 
             healthBar.SetCurrentHealth(currentHealth);
 
-            animatorHandler.PlayTargetAnimation("Take Damage", true);
+            animatorHandler.PlayTargetAnimation(damageAnimation, true);
 
             if(currentHealth <= 0)
             {

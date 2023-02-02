@@ -85,7 +85,7 @@ namespace MK
 
 
 
-        public void PlayTargetAnimation(string targetAnim, bool isInteracting, bool isLeftHand)
+        public void PlayTargetAttackAnimation(string targetAnim, bool isInteracting, bool isLeftHand)
         {
             if (isLeftHand) { anim.SetFloat("Is Left Hand", 1); }
             else { anim.SetFloat("Is Left Hand", -1); }

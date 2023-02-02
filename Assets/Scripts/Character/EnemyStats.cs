@@ -37,12 +37,12 @@ namespace MK
             }
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(int damage, string damageAnimation = "Take Damage")
         {
             if (isDead) { return; }
             currentHealth -= damage;
 
-            enemyAnimatorHandler.PlayTargetAnimation("Take Damage", true);
+            enemyAnimatorHandler.PlayTargetAnimation(damageAnimation, true);
 
             if (currentHealth <= 0)
             {

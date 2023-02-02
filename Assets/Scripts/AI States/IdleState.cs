@@ -11,6 +11,8 @@ namespace MK
 
         public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimatorHandler enemyAnimatorHandler)
         {
+            if (enemyManager.isInteracting) { return this; }
+
             //return this;
             // look for a potential target
             #region Target Detection
@@ -28,7 +30,7 @@ namespace MK
 
                     Vector3 targetDirection = characterStats.transform.position - enemyManager.transform.forward;
                     float viewableAngle = Vector3.Angle(targetDirection, enemyManager.transform.forward);
-                    Debug.Log(viewableAngle);
+                    //Debug.Log(viewableAngle);
 
                     if (viewableAngle > enemyManager.minimumDetectionAngle && viewableAngle < enemyManager.maximumDetectionAngle)
                     {

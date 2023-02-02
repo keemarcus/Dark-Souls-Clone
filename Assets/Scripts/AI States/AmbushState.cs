@@ -15,7 +15,9 @@ namespace MK
         public PursueTargetState pursueTargetState;
         public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimatorHandler enemyAnimatorHandler)
         {
-            if(isSleeping && !enemyManager.isInteracting)
+            if (enemyManager.isInteracting) { return this; }
+
+            if (isSleeping && !enemyManager.isInteracting)
             {
                 enemyAnimatorHandler.PlayTargetAnimation(sleepAnimation, true);
             }

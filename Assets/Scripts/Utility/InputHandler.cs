@@ -51,6 +51,7 @@ namespace MK
         WeaponSlotManager weaponSlotManager;
         PlayerManager playerManager;
         PlayerStats playerStats;
+        BlockingCollider blockingCollider;
         CameraHandler cameraHandler;
         AnimatorHandler animatorHandler;
         UIManager uiManager;
@@ -66,6 +67,7 @@ namespace MK
             playerInventory = GetComponent<PlayerInventory>();
             playerManager = GetComponent<PlayerManager>();
             playerStats = GetComponent<PlayerStats>();
+            blockingCollider = GetComponentInChildren<BlockingCollider>();
             weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
             uiManager = FindObjectOfType<UIManager>();
             cameraHandler = FindObjectOfType<CameraHandler>();
@@ -88,6 +90,7 @@ namespace MK
                 inputActions.PlayerActions.RT.performed += i => rt_input = true;
                 inputActions.PlayerActions.RBHold.performed += i => critical_attack_input = true;
                 inputActions.PlayerActions.LB.performed += i => lb_input = true;
+                inputActions.PlayerActions.LB.canceled += i => lb_input = false;
                 inputActions.PlayerActions.LT.performed += i => lt_input = true;
                 inputActions.DPadActions.DPadRight.performed += i => d_pad_right = true;
                 inputActions.DPadActions.DPadLeft.performed += i => d_pad_left = true;
@@ -114,7 +117,7 @@ namespace MK
         {
             HandleMoveInput(delta);
             HandleRollInput(delta);
-            HandleAttackInput(delta);
+            HandleCombatInput(delta);
             HandleQuickSlotsInput();
             HandleInventoryInput();
             HandleLockOnInput(delta);
@@ -174,7 +177,7 @@ namespace MK
             }
         }
 
-        private void HandleAttackInput(float delta)
+        private void HandleCombatInput(float delta)
         {
             if (pausedFlag) { return; }
 
@@ -191,18 +194,26 @@ namespace MK
             // lb/lt handle left hand weapons
             if (lb_input)
             {
-                if (playerManager.canDoCombo)
+                // block
+                playerAttacker.HandleLBAction();
+                //if (playerManager.canDoCombo)
                 {
-                    comboFlag = true;
-                    animatorHandler.anim.SetBool("Is Using Left Hand", true);
-                    playerAttacker.HandleWeaponCombo(playerInventory.leftWeapon, true);
-                    comboFlag = false;
+                    //comboFlag = true;
+                    //animatorHandler.anim.SetBool("Is Using Left Hand", true);
+                    //playerAttacker.HandleWeaponCombo(playerInventory.leftWeapon, true);
+                    //comboFlag = false;
                 }
-                else
+                //else
                 {
-                    animatorHandler.anim.SetBool("Is Using Left Hand", true);
-                    playerAttacker.HandleOHLightAttack(playerInventory.leftWeapon, true);
+                    //animatorHandler.anim.SetBool("Is Using Left Hand", true);
+                    //playerAttacker.HandleOHLightAttack(playerInventory.leftWeapon, true);
                 }
+            }
+            else
+            {
+                playerManager.isBlocking = false;
+
+                if (blockingCollider.blockingCollider.enabled) { blockingCollider.DisableBlockingCollider(); }
             }
             if (lt_input)
             {

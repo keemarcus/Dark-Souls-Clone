@@ -17,6 +17,7 @@ namespace MK
         public bool canBeRiposted;
         public bool canBeParried;
         public bool isParrying;
+        public bool isBlocking;
 
         // damage to be inflicted during an animation event (backstab/riposte)
         public int pendingCriticalDamage;

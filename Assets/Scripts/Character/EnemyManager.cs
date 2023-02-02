@@ -19,7 +19,9 @@ namespace MK
 
         public bool isPerformingAction;
         public bool isInteracting;
-        
+
+        [Header("Combat Flags")]
+        public bool canDoCombo;
 
         [Header("AI Settings")]
         public float detectionRadius = 20f;
@@ -54,14 +56,22 @@ namespace MK
             //Debug.Log(enemyLocomotion.navMeshAgent.steeringTarget);
             //Debug.Log(enemyLocomotion.)
             HandleRecoveryTimer();
+            HandleStateMachine();
             isInteracting = enemyAnimatorHandler.anim.GetBool("Is Interacting");
+            canDoCombo = enemyAnimatorHandler.anim.GetBool("Can Do Combo");
             enemyAnimatorHandler.anim.SetBool("Is Dead", enemyStats.isDead);
         }
-
-        private void FixedUpdate()
+        private void LateUpdate()
         {
-            HandleStateMachine();
+            navMeshAgent.transform.localPosition = Vector3.zero;
+            navMeshAgent.transform.localRotation = Quaternion.identity;
         }
+
+        //private void FixedUpdate()
+        //{
+            
+            
+        //}
 
         private void HandleStateMachine()
         {
