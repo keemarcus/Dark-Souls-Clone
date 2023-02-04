@@ -7,25 +7,24 @@ namespace MK
     public class PlayerEquipmentManager : MonoBehaviour
     {
         InputHandler inputHandler;
-        PlayerInventory playerInverntory;
+        PlayerInventory playerInventory;
         public BlockingCollider blockingCollider;
 
         private void Awake()
         {
             inputHandler = GetComponentInParent<InputHandler>();
-            playerInverntory = GetComponentInParent<PlayerInventory>();
-            //blockingCollider = GetComponentInChildren<BlockingCollider>();
+            playerInventory = GetComponentInParent<PlayerInventory>();
         }
 
         public void OpenBlockingCollider()
         {
             if (inputHandler.twoHandFlag)
             {
-                blockingCollider.SetColliderDamageAbsorption(playerInverntory.rightWeapon);
+                blockingCollider.SetColliderDamageAbsorption(playerInventory.rightWeapon);
             }
             else
             {
-                blockingCollider.SetColliderDamageAbsorption(playerInverntory.leftWeapon);
+                blockingCollider.SetColliderDamageAbsorption(playerInventory.leftWeapon);
             }
             
             blockingCollider.EnableBlockingCollider();

@@ -28,11 +28,10 @@ namespace MK
         public void TakeDamageNoAnimation(int damage)
         {
             if (isDead) { return; }
-            currentHealth -= damage;
+            currentHealth = Mathf.Clamp(currentHealth - damage, 0, maxHealth);
 
             if (currentHealth <= 0)
             {
-                currentHealth = 0;
                 isDead = true;
             }
         }
@@ -40,7 +39,7 @@ namespace MK
         public void TakeDamage(int damage, string damageAnimation = "Take Damage")
         {
             if (isDead) { return; }
-            currentHealth -= damage;
+            currentHealth = Mathf.Clamp(currentHealth - damage, 0, maxHealth);
 
             enemyAnimatorHandler.PlayTargetAnimation(damageAnimation, true);
 

@@ -41,7 +41,12 @@ namespace MK
                         // check if you are parryable
 
                         characterManager.GetComponentInChildren<AnimatorHandler>().PlayTargetAnimation("Parried", true);
-                    }else if(shield != null && enemyCharacterManager.isBlocking)
+                        float physicalDamageAfterBlock = currentWeaponDamage - (currentWeaponDamage * shield.blockingPhysicalDamageAbsorption) / 100;
+                        if (playerStats != null) { playerStats.TakeDamageNoAnimation(Mathf.RoundToInt(physicalDamageAfterBlock)); }
+                        Debug.Log(physicalDamageAfterBlock);
+                        return;
+                    }
+                    else if(shield != null && enemyCharacterManager.isBlocking)
                     {
                         float physicalDamageAfterBlock = currentWeaponDamage - (currentWeaponDamage * shield.blockingPhysicalDamageAbsorption) / 100;
                         if (playerStats != null) { playerStats.TakeDamage(Mathf.RoundToInt(physicalDamageAfterBlock), "Block Hit"); }
@@ -64,6 +69,9 @@ namespace MK
                         // check if you are parryable
 
                         characterManager.GetComponentInChildren<AnimatorHandler>().PlayTargetAnimation("Parried", true);
+                        float physicalDamageAfterBlock = currentWeaponDamage - (currentWeaponDamage * shield.blockingPhysicalDamageAbsorption) / 100;
+                        if (enemyStats != null) { enemyStats.TakeDamageNoAnimation(Mathf.RoundToInt(physicalDamageAfterBlock)); }
+                        return;
                     }
                     else if (shield != null && enemyCharacterManager.isBlocking)
                     {

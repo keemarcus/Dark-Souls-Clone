@@ -13,7 +13,7 @@ namespace MK
         {
             if (enemyManager.isInteracting) { return this; }
 
-            //return this;
+            
             // look for a potential target
             #region Target Detection
             Collider[] colliders = Physics.OverlapSphere(enemyManager.transform.position, enemyManager.detectionRadius, detectionLayer);
@@ -28,7 +28,7 @@ namespace MK
                 {
                     // check for team ID
 
-                    Vector3 targetDirection = characterStats.transform.position - enemyManager.transform.forward;
+                    Vector3 targetDirection = characterStats.transform.position - enemyManager.transform.position;
                     float viewableAngle = Vector3.Angle(targetDirection, enemyManager.transform.forward);
                     //Debug.Log(viewableAngle);
 
@@ -39,6 +39,9 @@ namespace MK
                 }
             }
             #endregion
+
+            //Debug.Log(enemyManager.currentTarget);
+            return this;
 
             // switch to pursue target state if we find one
             if (enemyManager.currentTarget != null)

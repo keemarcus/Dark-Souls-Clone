@@ -19,6 +19,11 @@ namespace MK
         public LayerMask backStabLayer = 1 << 12;
         public LayerMask riposteLayer = 1 << 13;
 
+        [Header("Critical Attack Ranges")]
+        public float backstabRange;
+        public float backstabMaxAngle;
+        public float riposteRange;
+
         private void Start()
         {
             animatorHandler = GetComponent<PlayerAnimatorHandler>();
@@ -184,6 +189,7 @@ namespace MK
             else // else, perform weapon art for left weapon
             {
                 animatorHandler.PlayTargetAnimation(playerInventory.leftWeapon.weapon_art, true);
+                playerEquipmentManager.blockingCollider.SetColliderDamageAbsorption(playerInventory.leftWeapon);
             }
             
         }
@@ -211,12 +217,13 @@ namespace MK
             if (playerStats.currentStamina <= 0) { return; }
 
             RaycastHit hit;
-            if (Physics.Raycast(inputHandler.criticalAttackRayCastStartPoint.position, transform.TransformDirection(Vector3.forward), out hit, .5f, backStabLayer))
+            // handle backstab
+            if (Physics.Raycast(inputHandler.criticalAttackRayCastStartPoint.position, transform.TransformDirection(Vector3.forward), out hit, backstabRange, backStabLayer))
             {
                 CharacterManager enemyCharacterManager = hit.transform.gameObject.GetComponentInParent<CharacterManager>();
                 DamageCollider rightWeapon = weaponSlotManager.rightHandDamageCollider;
 
-                if (enemyCharacterManager != null)
+                if (enemyCharacterManager != null && Vector3.Angle(playerManager.transform.forward, enemyCharacterManager.transform.forward) < backstabMaxAngle)
                 {
                     // check for team ID
 
@@ -241,7 +248,8 @@ namespace MK
                     enemyCharacterManager.GetComponentInChildren<AnimatorHandler>().PlayTargetAnimation("Back Stabbed", true);
                 }
             }
-            else if (Physics.Raycast(inputHandler.criticalAttackRayCastStartPoint.position, transform.TransformDirection(Vector3.forward), out hit, 1.5f, riposteLayer))
+            // handle riposte
+            else if (Physics.Raycast(inputHandler.criticalAttackRayCastStartPoint.position, transform.TransformDirection(Vector3.forward), out hit, riposteRange, riposteLayer))
             {
                 CharacterManager enemyCharacterManager = hit.transform.gameObject.GetComponentInParent<CharacterManager>();
                 DamageCollider rightWeapon = weaponSlotManager.rightHandDamageCollider;

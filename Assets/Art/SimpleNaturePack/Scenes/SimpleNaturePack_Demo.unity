@@ -38689,8 +38689,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.7454127, y: 1.4665403, z: 0.13657379}
-  m_Center: {x: 0.0047141314, y: 0.7679267, z: 0.30320358}
+  m_Size: {x: 0.7454127, y: 1.3810558, z: 0.13657379}
+  m_Center: {x: 0.0047141314, y: 0.81066895, z: 0.30320358}
 --- !u!4 &1947109236 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3899520030807063256, guid: 299e7a1cb6456cf4fa6079cf5978df9b, type: 3}
@@ -40678,7 +40678,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8831382721055155616, guid: c59127c168757944f815b3a9e2ede1c3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.25
+      value: 1.23
       objectReference: {fileID: 0}
     - target: {fileID: 8831382721055155616, guid: c59127c168757944f815b3a9e2ede1c3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -40816,6 +40816,9 @@ MonoBehaviour:
   riposteLayer:
     serializedVersion: 2
     m_Bits: 8192
+  backstabRange: 1
+  backstabMaxAngle: 50
+  riposteRange: 1.5
 --- !u!114 &2083525640
 MonoBehaviour:
   m_ObjectHideFlags: 0

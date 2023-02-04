@@ -69,7 +69,8 @@ namespace MK
             animatorHandler.Initialize();
 
             playerManager.isGrounded = true;
-            ignoreForGroundCheck = ~(1 << 8 | 1 << 11);
+            //ignoreForGroundCheck = ~(1 << 8 | 1 << 11 | 1 << 12);
+            ignoreForGroundCheck = ~(1 << 9 | 1 << 10 | 1 << 11 | 1 << 12 | 1 << 13);
             Physics.IgnoreCollision(characterCollider, characterCollisionBlocker, true);
         }
 
@@ -192,6 +193,8 @@ namespace MK
 
         public void HandleFalling(float delta, Vector3 moveDirection)
         {
+            //Debug.Log(inAirTimer);
+
             playerManager.isGrounded = false;
             RaycastHit hit;
             Vector3 origin = myTransform.position;
