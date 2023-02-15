@@ -41,7 +41,7 @@ namespace MK
             #endregion
 
             //Debug.Log(enemyManager.currentTarget);
-            return this;
+            //return this;
 
             // switch to pursue target state if we find one
             if (enemyManager.currentTarget != null)

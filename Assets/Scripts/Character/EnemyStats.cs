@@ -7,14 +7,17 @@ namespace MK
     public class EnemyStats : CharacterStats
     {
         EnemyAnimatorHandler enemyAnimatorHandler;
+        public UIEnemyHealthBar enemyHealthBar;
         public int soulsAwardedOnDeath = 50;
 
         void Start()
         {
             enemyAnimatorHandler = GetComponentInChildren<EnemyAnimatorHandler>();
+            enemyHealthBar = GetComponentInChildren<UIEnemyHealthBar>();
 
             maxHealth = SetMaxHealthFromHealthLevel();
             currentHealth = maxHealth;
+            enemyHealthBar.SetMaxHealth(maxHealth);
 
             this.teamID = "Enemy";
         }
@@ -29,6 +32,7 @@ namespace MK
         {
             if (isDead) { return; }
             currentHealth = Mathf.Clamp(currentHealth - damage, 0, maxHealth);
+            enemyHealthBar.SetHealth(currentHealth);
 
             if (currentHealth <= 0)
             {
@@ -40,6 +44,7 @@ namespace MK
         {
             if (isDead) { return; }
             currentHealth = Mathf.Clamp(currentHealth - damage, 0, maxHealth);
+            enemyHealthBar.SetHealth(currentHealth);
 
             enemyAnimatorHandler.PlayTargetAnimation(damageAnimation, true);
 

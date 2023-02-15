@@ -25,9 +25,9 @@ namespace MK
         {
             playerManager = GetComponent<PlayerManager>();
             animatorHandler = GetComponentInChildren<PlayerAnimatorHandler>();
-            healthBar = FindObjectOfType<HealthBar>();
-            staminaBar = FindObjectOfType<StaminaBar>();
-            focusPointBar = FindObjectOfType<FocusPointBar>();
+            healthBar = FindObjectOfType<UIManager>().gameObject.GetComponentInChildren<HealthBar>(); //FindObjectOfType<HealthBar>();
+            staminaBar = FindObjectOfType<UIManager>().gameObject.GetComponentInChildren<StaminaBar>(); //FindObjectOfType<StaminaBar>();
+            focusPointBar = FindObjectOfType<UIManager>().gameObject.GetComponentInChildren<FocusPointBar>(); //FindObjectOfType<FocusPointBar>();
 
             maxHealth = SetMaxHealthFromHealthLevel();
             currentHealth = maxHealth;

@@ -29,6 +29,10 @@ namespace MK
         public float maximumDetectionAngle = 50f;
         //public float viewableAngle;
 
+        [Header("AI Combat Settings")]
+        public bool allowAICombo;
+        public float comboLikelihood;
+
         public float currentRecoveryTime = 0f;
 
         //public float distanceFromTarget;

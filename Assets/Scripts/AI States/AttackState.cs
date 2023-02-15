@@ -11,16 +11,16 @@ namespace MK
         public EnemyAttackAction currentAttack;
         public EnemyAttackAction[] enemyAttacks;
 
-        bool isComboing = false;
+        bool willComboOnNextAttack = false;
         public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimatorHandler enemyAnimatorHandler)
         {
             if (enemyManager.isInteracting && !enemyManager.canDoCombo) { return this; }
             else if(enemyManager.isInteracting && enemyManager.canDoCombo)
             {
-                if (isComboing)
+                if (willComboOnNextAttack)
                 {
+                    willComboOnNextAttack = false;
                     enemyAnimatorHandler.PlayTargetAnimation(currentAttack.actionAnimation, true);
-                    isComboing = false;
                 }
             }
 
@@ -55,8 +55,9 @@ namespace MK
                             enemyAnimatorHandler.anim.SetFloat("Is Left Hand", -1f);
                             enemyAnimatorHandler.PlayTargetAnimation(currentAttack.actionAnimation, true);
                             enemyManager.isPerformingAction = true;
+                            RollForComboChance(enemyManager);
 
-                            if (currentAttack.canCombo)
+                            if (currentAttack.canCombo && willComboOnNextAttack)
                             {
                                 currentAttack = currentAttack.comboAttack;
                                 return this;
@@ -128,6 +129,18 @@ namespace MK
                     }
                 }
             }
+        }
+
+        private void RollForComboChance(EnemyManager enemyManager)
+        {
+            float comboChance = Random.Range(0f, 100f);
+            //Debug.Log(comboChance);
+
+            if (enemyManager.allowAICombo && comboChance <= enemyManager.comboLikelihood)
+            {
+                willComboOnNextAttack = true;
+            }
+            //Debug.Log(willComboOnNextAttack);
         }
         private void HandleRotateTowardsTarget(EnemyManager enemyManager, float distanceFromTarget)
         {
