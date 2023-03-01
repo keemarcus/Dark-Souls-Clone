@@ -4663,6 +4663,7 @@ MonoBehaviour:
   canBeParried: 0
   isParrying: 0
   isBlocking: 0
+  isFiringSpell: 0
   pendingCriticalDamage: 0
   navMeshAgent: {fileID: 0}
   enemyRigidBody: {fileID: 0}
@@ -41587,6 +41588,7 @@ MonoBehaviour:
   canBeParried: 0
   isParrying: 0
   isBlocking: 0
+  isFiringSpell: 0
   pendingCriticalDamage: 0
   navMeshAgent: {fileID: 0}
   enemyRigidBody: {fileID: 0}
@@ -41920,7 +41922,7 @@ PrefabInstance:
     - target: {fileID: 2823617046835543065, guid: c59127c168757944f815b3a9e2ede1c3, type: 3}
       propertyPath: currentSpell
       value: 
-      objectReference: {fileID: 11400000, guid: 30b1298ffe7183146be8f95ebc4893b4, type: 2}
+      objectReference: {fileID: 11400000, guid: afc64148623567b41874bd92c54628bb, type: 2}
     - target: {fileID: 2823617046835543065, guid: c59127c168757944f815b3a9e2ede1c3, type: 3}
       propertyPath: unarmedWeapon
       value: 
@@ -41948,11 +41950,11 @@ PrefabInstance:
     - target: {fileID: 2823617046835543065, guid: c59127c168757944f815b3a9e2ede1c3, type: 3}
       propertyPath: weaponsInLeftHandSlots.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: 36c1ec3a8ab9d554ab2b5ae696002d9d, type: 2}
+      objectReference: {fileID: 11400000, guid: 92ab66dca3c84b64e8b1fd76b623f6de, type: 2}
     - target: {fileID: 2823617046835543065, guid: c59127c168757944f815b3a9e2ede1c3, type: 3}
       propertyPath: weaponsInRightHandSlots.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 36c1ec3a8ab9d554ab2b5ae696002d9d, type: 2}
+      objectReference: {fileID: 11400000, guid: 92ab66dca3c84b64e8b1fd76b623f6de, type: 2}
     - target: {fileID: 2823617046835543065, guid: c59127c168757944f815b3a9e2ede1c3, type: 3}
       propertyPath: weaponsInRightHandSlots.Array.data[1]
       value: 
@@ -42727,6 +42729,7 @@ MonoBehaviour:
   canBeParried: 0
   isParrying: 0
   isBlocking: 0
+  isFiringSpell: 0
   pendingCriticalDamage: 0
   navMeshAgent: {fileID: 0}
   enemyRigidBody: {fileID: 0}

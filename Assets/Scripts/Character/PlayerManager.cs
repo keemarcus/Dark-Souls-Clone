@@ -49,6 +49,7 @@ namespace MK
             isUsingRightHand = anim.GetBool("Is Using Right Hand");
             isUsingLeftHand = anim.GetBool("Is Using Left Hand");
             isInvulnerable = anim.GetBool("Is Invulnerable");
+            isFiringSpell = anim.GetBool("Is Firing Spell");
             anim.SetBool("Is Blocking", isBlocking);
             anim.SetBool("Is In Air", isInAir);
             anim.SetBool("Is Dead", playerStats.isDead);

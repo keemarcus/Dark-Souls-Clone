@@ -17,7 +17,7 @@ public class ResetAnimatorBool : StateMachineBehaviour
             {
                 string[] targetBools = targetBool.Split(',');
                 
-                foreach(string target in targetBools) { animator.SetBool(target, status); }
+                foreach(string target in targetBools) { Debug.Log(target); Debug.Log(status); animator.SetBool(target, status); }
                 targetBool = targetBools[0];
             }
             else
@@ -34,12 +34,12 @@ public class ResetAnimatorBool : StateMachineBehaviour
             if (targetBool.Contains(","))
             {
                 string[] targetBools = targetBool.Split(',');
-                foreach (string target in targetBools) { animator.SetBool(target, status); }
+                foreach (string target in targetBools) { Debug.Log(target); Debug.Log(status); animator.SetBool(target, status); }
                 targetBool = targetBools[0];
             }
             else
             {
-                animator.SetBool(targetBool, status);
+                Debug.Log(targetBool); Debug.Log(status); animator.SetBool(targetBool, status);
             }
         }
         else { return; }

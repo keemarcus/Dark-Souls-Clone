@@ -14,8 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemIcon: {fileID: 21300000, guid: f60d3e42c9608b64e8987d21f79090ea, type: 3}
   itemName: Mace
-  modelPrefab: {fileID: 7676615874565401376, guid: e3859f6693a10b74891a7be905dee1fa, type: 3}
+  modelPrefab: {fileID: 7250797885131458752, guid: d3185badd5d2f5341a262d040aa67579, type: 3}
   isUnarmed: 0
+  baseDamage: 25
+  criticalDamageMultiplier: 4
+  physicalDamageAbsorption: 0
   Right_Hand_Idle: Right_Arm_Idle_01
   Left_Hand_Idle: Left_Arm_Idle_01
   TH_Idle: TH_Idle_01
@@ -25,6 +28,7 @@ MonoBehaviour:
   TH_Light_Attack_01: TH_Light_Attack_01
   TH_Light_Attack_02: TH_Light_Attack_02
   TH_Heavy_Attack_01: TH_Heavy_Attack_03
+  weapon_art: 
   baseStaminaCost: 20
   lightAttackMultiplier: 1
   heavyAttackMultiplier: 1.5
@@ -32,3 +36,4 @@ MonoBehaviour:
   isFaithCaster: 1
   isPyroCaster: 0
   isMeleeWeapon: 0
+  isShield: 0

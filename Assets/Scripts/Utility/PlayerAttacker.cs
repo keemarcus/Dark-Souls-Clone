@@ -175,6 +175,20 @@ namespace MK
                     // Attempt To Cast The Spell
                     playerInventory.currentSpell.AttemptToCastSpell(animatorHandler, playerStats, false);
                 }
+            } 
+            else if (weapon.isPyroCaster)
+            {
+                if (playerInventory.currentSpell != null && playerInventory.currentSpell.isPyroSpell)
+                {
+                    // Check For Focus Points
+                    if (playerStats.currentFocusPoints < playerInventory.currentSpell.focusPointCost)
+                    {
+                        animatorHandler.PlayTargetAnimation("Take Damage", true);
+                        return;
+                    }
+                    // Attempt To Cast The Spell
+                    playerInventory.currentSpell.AttemptToCastSpell(animatorHandler, playerStats, false);
+                }
             }
         }
 
@@ -197,6 +211,7 @@ namespace MK
         private void SuccessfullyCastSpell()
         {
             playerInventory.currentSpell.SuccessfullyCastSpell(animatorHandler, playerStats);
+            animatorHandler.anim.SetBool("Is Firing Spell", true);
         }
         #endregion
 

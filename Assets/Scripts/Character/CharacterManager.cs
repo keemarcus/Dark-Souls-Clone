@@ -19,6 +19,9 @@ namespace MK
         public bool isParrying;
         public bool isBlocking;
 
+        [Header("Spell Flags")]
+        public bool isFiringSpell;
+
         // damage to be inflicted during an animation event (backstab/riposte)
         public int pendingCriticalDamage;
     }
